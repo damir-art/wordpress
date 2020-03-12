@@ -1,0 +1,2 @@
+# wordpress
+Руководство Wordpress
