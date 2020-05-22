@@ -4,6 +4,7 @@
 * https://developer.wordpress.org/ - для разработчиков
 
 ## Блоги
+* https://zacompom.ru/plugins/11-luchshih-plaginov-foto-galerej-dlja-wordpress.html
 * https://oddstyle.ru - последние новости о WP
 * https://wp-kama.ru/handbook - учебник по WordPress от Kama
 * https://wp-kama.ru/handbook/theme/customize-api - кастомайзер
