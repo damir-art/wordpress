@@ -87,7 +87,6 @@
 **get_the_date()**, **get_the_time()** обычно располагаются в файлах `functions.php`, `content.php`, `content-single.php`, `content-page.php` и т.п.
 
 ## .class, #id (header.php)
-https://wpmag.ru/2014/body_class-wordpress/
 
     body_class() // свой класс в body для всех шаблонов
     post_class()
