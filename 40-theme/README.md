@@ -8,7 +8,7 @@
 - 404.php
 - Иерархия шаблонов
 - Функции используемые в файл-шблонах
-- function.php
+- functions.php
 
 ## Файл-шаблоны темы
 Создаем в папке с темой `/wp-content/themes/mythem`, папки и файлы:
@@ -22,7 +22,7 @@
     header.php
     index.php
     page.php
-    screenshot.png
+    screenshot.png (1200x900px)
     single.php
     style.css
 
