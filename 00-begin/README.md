@@ -6,3 +6,16 @@
 * Установка тем
 * Установка начальных плагинов
 * Создание дочерней темы *(после выбора окончательной темы)*
+
+## robots.txt
+Код по-умолчанию:
+
+    User-agent: *
+    Disallow: /wp-admin/
+    Allow: /wp-admin/admin-ajax.php
+
+    Sitemap: https://pro-okna.org/wp-sitemap.xml
+
+Sitemap XML уже встроен:
+
+    Sitemap: https://pro-okna.org/wp-sitemap.xml

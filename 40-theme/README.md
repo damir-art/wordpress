@@ -41,3 +41,21 @@
     - Создать 10 любых записей
     - Создать по адресу /wp-content/themes/ папку myTheme
     - В папке myTheme создать два пустых файла index.php и style.css
+
+## Создаём дочернюю тему
+- в папке `/wp-content/themes/` создаём тему с именем `themeName-child`
+- в папке `/wp-content/themes/themeName-child` создаём файл `style.css`
+
+В файле `style.css` записываем:
+
+    /*
+        Theme Name: themeName-child
+        Template: themeName
+    */
+
+    @import url('../themeName/style.css');
+
+- дочерняя тема перед за основу файл-шаблоны родительской
+    - копируем файл-шаблон родительской, подстраиваем под себя в дочерней
+- function.php не перезаписывается, а дополняется
+    - сначала срабатывается function.php из дочерней, потом из родительской

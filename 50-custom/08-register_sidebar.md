@@ -1,64 +1,86 @@
 # Сайдбар
-Создание сайдбара.
+Сайдбар это зона, где с помощью виджетов выводится контент: `Админка > Внешний вид > Виджеты`
 
-В файле functions.php прописываем:
+- регистрация сайдбара
+- наполнение сайдбара виджетами
+- вывод сайдбара в шаблоне
+- https://wp-kama.ru/function/register_sidebar
 
-    register_sidebar(
-        array(
-            'name' => 'Сайдбар',
-            'id' => 'mainsidebar',
-            'before_widget' => '<div class="widget">',
-            'after_widget' => '</div>',
-            'before_title' => '<div class="widgetTitle">',
-            'after_title' => '</div>',
-        )
-    );
-
-    /* у id не должно быть заглавных букв и пробелов */
-
-В файле sidebar.php, прописываем:
-
-    <?php if (!dynamic_sidebar('mainsidebar')): ?>
-    <?php endif; ?>
-
-    или
-
-    if (function_exists('dynamic_sidebar')) {
-        dynamic_sidebar('sidebar-$i');
-    }
-
-https://wp-kama.ru/function/register_sidebar
-
-Регистрация в functions.php:
-
-    add_action('widgets_init', 'test_widgets');
-
-    function test_widgets(){
-        register_sidebar([
-            'name'          => 'Sidebar Top',
-            'id'            => 'sidebar-top',
-            'description'   => 'Шапка сайта',
-            'before_widget' => '<div class="widget %2$s">',
-            'after_widget'  => "</div>\n"
-        ]);
-
-        register_sidebar([
-            'name'          => 'Sidebar Bottom',
-            'id'            => 'sidebar-bottom',
-            'description'   => 'Подвал сайта',
-            'before_widget' => '<div class="widget %2$s">',
-            'after_widget'  => "</div>\n"
-        ]);
-    }
-
-## Разное
+Рабочий процесс:
 - register_sidebar() - регистрирует сайдбар в function.php
 - register_sidebars() - регистрирует несколько сайдбаров сразу в function.php
 - dynamic_sidebar() - выводит панель виджетов в шаблоне
 - id - не должен быть равен https://wordpress.stackexchange.com/questions/59973/what-is-allowed-as-an-id-argument-in-register-sidebar-args/59985#59985
 
-По-умолчанию, сайдбар с виджетами это список ul с li, каждый виджет имеет заголовк h2, 'name' и 'id' - должны быть заполнены, $i - инкремент от нуля, считающий количество сайдбаров в теме.
+В файле `functions.php` прописываем:
 
+    add_action( 'widgets_init', 'po_sidebar' );
+
+    function po_sidebar() {
+        register_sidebar([
+            'name'          => 'Сайдбар для шапки',       // Название которое увидим в админке
+            'id'            => 'sidebar-top',             // Используем в шаблоне при выводе
+            'description'   => 'Изменяем номер телефона', // Описание, появится в админке
+            'class'         => 'po-class-sidebar-top',    // CSS-класс панели виджетов
+            'before_widget' => null,                      // null - убираем обертку виджета, можем поменять тег на div
+            'after_widget'  => null                       // null - убираем конечный тег обертки виджета
+        ]);
+
+        register_sidebar([
+            'name'          => 'Сайдбар для подвала',
+            'id'            => 'sidebar-bottom',
+            'description'   => 'Изменяем контакты',
+            'class'         => 'po-class-sidebar-bottom',
+            'before_widget' => null,
+            'after_widget'  => null
+        ]);
+    }
+
+У `id` не должно быть заглавных букв и пробелов.
+
+В файл-шаблоне прописываем:
+
+    <?php dynamic_sidebar( 'sidebar-top' ); ?>
+
+И куча других способов вывода с проверками: https://wp-kama.ru/function/dynamic_sidebar
+
+    // Выводим, если в сайдбаре есть хотя бы один виджет
+    <?php if ( is_active_sidebar( 'sidebar-top' ) ) : ?>
+        <ul id="sidebar">
+            <?php dynamic_sidebar( 'sidebar-top' ); ?>
+        </ul>
+    <?php endif; ?>
+
+## Шаблон register_sidebar
+
+    add_action('widgets_init', 'test_widgets');
+
+    function test_widgets(){
+        register_sidebar([
+            'name'           => 'Сайдбар для шапки',                  // Название которое увидим в админке
+            'id'             => 'sidebar-top',                        // Используем в шаблоне при выводе
+            'description'    => 'Изменяем номер телефона',            // Описание, появится в админке
+            'class'          => 'po_class_sidebar',                   // CSS-класс панели виджетов
+            'before_widget'  => '<li id="%1$s" class="widget %2$s">', // null - убираем обертку виджета, можем поменять тег на div
+            'after_widget'   => "</li>\n",                            // null - убираем конечный тег обертки виджета
+            'before_title'   => '<h2 class="widgettitle">',           // null - убираем заголовок виджета, можем поменять тег на div
+            'after_title'    => "</h2>\n",                            // null - убираем конечный тег заголовка виджета,
+            'before_sidebar' => '', // WP 5.6
+            'after_sidebar'  => '', // WP 5.6
+        ]);
+
+        register_sidebar([
+            'name'          => 'Сайдбар для подвала',
+            'id'            => 'sidebar-bottom',
+            'description'   => 'Изменяем контакты',
+            'before_widget' => '<div class="widget %2$s">',
+            'after_widget'  => "</div>\n"
+        ]);
+    }
+
+`name` и `id` обязательны для использования.
+
+По-умолчанию, сайдбар с виджетами это список `ul` с `li`, каждый виджет имеет заголовк `h2`. `name` и `id` - должны быть заполнены, `$i` - инкремент от нуля, считающий количество сайдбаров в теме.
 
 - `name` - название сайдбара, которое видно в админке, например 'Левый сайдбар'
 - `Sidebar %d` - покажет "Боковая колонка 0"

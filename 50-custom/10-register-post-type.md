@@ -1,29 +1,61 @@
 # Пользовательские типы записей
-## register_post_type()
-
 Создание пользовательских типов записей.
+
+По-умолчанию в WordPress существует два типа записей (типа контента) это посты и страницы, но можно создавать свои собственные.
+
+Пользовательские записи при постраничной навигации выводятся в шаблонах с именем `archive-Name.php`.
+
+- `register_post_type()` создает новый тип записи, содержит два параметра `имя записи` и массив
+- `init` хук к оторому прикрепляется пользовательская функция
+
+Код:
+
+    // Регистрация пользовательских типов записей
+    add_action( 'init', 'po_register_types' );
+
+    function po_register_types() {
+        register_post_type( 'news' ,
+            [
+                'labels'                 => array(
+                    'name'               => 'Новости',                       // Основное название типа записи (заголовок списка), также попадает в title
+                    'singular_name'      => 'Новость',                       // Название для одной записи этого типа
+                    'add_new'            => 'Добавить новость',              // Для добавления новой записи (в меню)
+                    'add_new_item'       => 'Добавить новость',              // Для заголовка у вновь создаваемой записи в админ-панели
+                    'edit_item'          => 'Редактировать новость',         // Для редактирования типа записи
+                    'new_item'           => 'Новая новость',                 // Текст новой записи
+                    'view_item'          => 'Посмотреть новость',            // Для просмотра записи этого типа
+                    'search_items'       => 'Найти новость',                 // Для поиска по этим типам записей
+                    'not_found'          => 'Новостей не найдено',           // Если в результате поиска ничего не было найдено
+                    'not_found_in_trash' => 'В корзине новостей не найдено', // Если не было найдено в корзине
+                    'parent_item_colon'  => '',                              // Для родителей в древовидных типах
+                    'menu_name'          => 'Новости'                   // Название в меню
+                ),
+                'public'             => true,
+                'has_archive'        => true,                               // true - регистарция URL под этот тип записей
+                'menu_position'      => 20,
+                'menu_icon'          => 'dashicons-welcome-write-blog',     // _po_dist_path( 'img/news.png' )
+                'supports'           => [ 'title', 'editor', 'thumbnail' ], // title (должен быть всегда), 'editor', 'author', 'thumbnail', 'excerpt', 'comments'
+                // 'publicly_queryable' => true,
+                // 'show_ui'            => true,
+                // 'show_in_menu'       => true,
+                // 'query_var'          => true,
+                // 'rewrite'            => true,
+                // 'capability_type'    => 'post',
+                // 'hierarchical'       => false, // Вложенность записей, будет ли запись типа `страница`
+                'show_in_rest'        => true, // Включить Гутенберг для пользовательских типов записей
+            ]
+        );
+    }
+
+- Ярлык `news` должен быть уникальным
+- В меню появится ссылка на новый тип записи, выбираем вкладку `все`
+- Файл в теме должен называться `archive-news.php`
+- Внутри функции `po_register_types` может быть несколько `register_post_type` в зависимости от количества типов записей на сайте
+- Если `'menu_position' => 20,` у нескольких записей совпадают то в админке они будут идти друг за другом
+- `'has_archive' => true,` выставляем в `false` если нам не нужно выводить записи отдельно на своих страницах, а нужно выводить их в виде цикла на главной или других страницах не принадлежащих данному типу записи
 
 **Важно:** после создания нового типа записи, обязательно нужно зайти в: `Админка > Настройки > Постоянные ссылки`. Это необходимо для того, чтобы правила ЧПУ работали и для нового типа записи.
 
-По-умолчанию в WordPress существует два типа записей (типа контента) это посты и страницы.
-
-Пример:
-
-    add_action( 'init', 'foo' );
-    function foo() {
-        register_post_type( 'news', [
-            'key' => 'value',
-            ...
-        ]);
-    }
-
-* https://wp-kama.ru/id_5851/zapisi-v-wordpress.html
-* https://wp-kama.ru/function/register_post_type
-* https://wp-kama.ru/id_8218/taksonomii-v-wordpress.html
-* https://wp-kama.ru/id_8902/metadannye-v-wordpress.html
-* **Плагин:** https://ru.wordpress.org/plugins/custom-post-type-ui/
-
----
 1. Создаем пользовательскую запись (car)
 2. Создаём цикл для вывода пользовательской записи (car)
 3. Создаём пользовательскую таксономию для (car)
@@ -215,3 +247,10 @@ add_action('init', 'reviews_post_types');
         register_post_type('myTheme_slider_front', $args);
     }
     add_action('init', 'slider_front');
+
+## Разное
+* https://wp-kama.ru/id_5851/zapisi-v-wordpress.html
+* https://wp-kama.ru/function/register_post_type
+* https://wp-kama.ru/id_8218/taksonomii-v-wordpress.html
+* https://wp-kama.ru/id_8902/metadannye-v-wordpress.html
+* **Плагин:** https://ru.wordpress.org/plugins/custom-post-type-ui/

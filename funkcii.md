@@ -17,7 +17,7 @@
     bloginfo('name')             // выводит имя блога
     bloginfo('description')      // описание блога
     bloginfo('charset')          // кодировка страницы
-    language_attributes
+    <?php language_attributes(); ?> // язык страницы
     bloginfo('stylesheet_url')   // путь к файлу style.css
     bloginfo('url')              // адрес блога (устарело)
     bloginfo('template_url')     // путь к папке темы
@@ -130,4 +130,3 @@
     get_posts
     setup_postdata
     wp_reset_postdata
-    

@@ -12,3 +12,17 @@
         Цикл
 
     <?php get_footer(); ?>
+
+## Подключаем изображения
+
+    <img src="<?php echo get_template_directory_uri() ?>/img/header.png" width="600" height="400" alt="" />
+
+Можно создать функцию и разместить её в `function.php`:
+
+    function _po_dist_path( $path ) {
+        return get_template_directory_uri() . '/dist/' . $path;
+    }
+
+Код для шаблона:
+
+    <img src="<?php echo _po_dist_path( 'img/header.png' ) ?>" width="600" height="400" alt="" />

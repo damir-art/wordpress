@@ -1,6 +1,7 @@
 # Функции подключаемых файлов
 После создания подключаемых файлов, туда нужно внедрить различные функции, рассмотрим их.
 
+## header.php
 Схема header.php:
 
     <!DOCTYPE html>
@@ -14,7 +15,7 @@
             <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> &raquo; Лента" href="<?php bloginfo('rss2_url'); ?>" />
             <?php wp_head(); ?> 
         </head>
-        <body>
+        <body <?php body_class() ?> >
             <div id="header">
                 <h1><?php bloginfo('name'); ?></h1>
                 <p><?php bloginfo('description'); ?></p>
@@ -35,4 +36,20 @@
 - `echo get_template_directory_uri();` - выводит путь к теме
 - `body_class();` - добавление классов WordPress в тег body
 
+Добавляем свой CSS-класс для внутренних страниц сайта:
+
+    $body_class = '';
+    if ( !is_front_page() ) {
+        $body_class = 'inner';
+    }
+
+    <body class=" <?php echo $body_class ?> ">
+
 Выяснить, что такое: `http://gmpg.org/xfn/11` и `bloginfo('pingback_url');`
+
+`wp_head()` - вызывает `do_action( 'wp_head' `, на этот хук, WordPress подписывает вывод тегов которые нужно вставить между тегами `head`
+
+## footer.php
+Перед закрывающим тегом `body` удаляем все скрипты и вставляем `<?php wp_footer() ?>`
+
+`wp_footer()` - вызывает хук `wp_footer`, WordPress подключает сюда скрипты, которые нужно вставить в футер. Также этот хук выводит панель администратора сверху.
