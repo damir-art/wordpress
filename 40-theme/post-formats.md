@@ -3,13 +3,13 @@
 
 Перед использованием форматов постов, нужно их активировать в файле **functions.php**
 
-	add_theme_support('post-formats');
+    add_theme_support('post-formats');
 
 Далее в цикле вместо тегов цикла записываем:
 
     $post_format = get_post_format();
     get_template_part('parts/post', $post_format);
 
-	имя файла формируется как "post + название формата + .php"
+    имя файла формируется как "post + название формата + .php"
 
 В папке parts создать следующие файлы post.php, post-aside.php, post-quote.php и т.д. В шаблонах форматов постов оставляйте только теги цикла WordPress, начало и конец цикла не включайте.

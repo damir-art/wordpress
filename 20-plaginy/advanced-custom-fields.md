@@ -1,5 +1,5 @@
 # Advanced Custom Fields (ACF)
-Пользовательске поля для записей (post, page, custom).
+Пользовательские поля для записей (post, page, custom).
 
 В админке ACF назвается как `Группы полей`.
 

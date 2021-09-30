@@ -14,8 +14,8 @@
     Disallow: /wp-admin/
     Allow: /wp-admin/admin-ajax.php
 
-    Sitemap: https://pro-okna.org/wp-sitemap.xml
+    Sitemap: https://site.ru/wp-sitemap.xml
 
 Sitemap XML уже встроен:
 
-    Sitemap: https://pro-okna.org/wp-sitemap.xml
+    Sitemap: https://site.ru/wp-sitemap.xml

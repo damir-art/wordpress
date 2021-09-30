@@ -30,7 +30,7 @@
     echo get_post_meta( $post->ID, 'price', true ); // Пользовательские записи, через ACF: get_field( 'price', $post->ID ) 
     // Пользовательские записи, через ACF: get_field( 'price', $post->ID ) или get_fields( $post->ID )[ 'price' ]
 
-Если контент обрабатывают плагины и возникакет ошибка то, можно написать следующий пост:
+Если контент обрабатывают плагины и возникает ошибка то, можно написать следующий пост:
 
     echo apply_filters( 'the_content', $post->post_content );
 

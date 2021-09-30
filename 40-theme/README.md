@@ -1,5 +1,6 @@
 # Создание темы WordPress
 
+## Оглавление раздела
 - style.css
 - Подключаемые файлы (header.php, footer.php, sidebar.php)
 - index.php (loop)
