@@ -1,9 +1,9 @@
 # get_template_part() - многоразовый код
-Если какой-нибудь код в теме WordPress используется более одного раза, то его нужно вынести в отдельный файл и подключать с помощью функции get_template_part()
+Если какой-нибудь код в теме WordPress используется более одного раза, то его нужно вынести в отдельный файл и подключать с помощью функции `get_template_part()`.
 
 Подключаемый код, относятся к понятию программирования **DRY** *(don't repeat yourself)* - не повторяйся. В вашем проекте, не должно быть ни одного кода который бы повторялся бы более одного раза.
 
-Чтобы подключить, ту или иную часть кода к теме, можно вместо require() или include() использовать спецально для этого созданную функцию WordPress:
+Чтобы подключить, ту или иную часть кода к теме, можно вместо `require()` или `include()` использовать спецально для этого созданную функцию WordPress:
 
     get_template_part();
 
@@ -26,13 +26,28 @@
     
     <?php get_template_part('parts/content', 'page'); ?>
     
-    Данная строка, будет ссылаться на файл parts/content-page.php
+Данная строка, будет ссылаться на файл `parts/content-page.php`
 
-Преимущества по сравнению с `require()` или `include()`, не нужно указывать путь до темы:
+## require()
+Преимущества по сравнению с `require()` или `include()`:
+- не нужно указывать путь до темы:
+- возможность использования дочерних тем
 
+Аналог get_header():
 
     <?php get_header(); ?>
-    <?php include (TEMPLATEPATH . '/header.php'); ?> // аналог get_header()
+    <?php include(TEMPLATEPATH . '/header.php'); ?>
+
+## Примеры
+
+    // parts/part.php
+    get_template_part("parts/part");
+
+    // parts/part-one.php
+    get_template_part("parts/part", "one");
+
+    // третьим параметром можно передавать массив данных
+    get_template_part("parts/part", "two", array());
 
 ## Разное
 - https://wp-kama.ru/function/get_template_part

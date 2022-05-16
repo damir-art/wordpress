@@ -1,4 +1,4 @@
-# Функции WordPress
+# Теги шаблона WordPress
 ## Частоиспользуемые функции Wordpress
 Все функции и классы WordPress: https://wp-kama.ru/functions/functions-db
 

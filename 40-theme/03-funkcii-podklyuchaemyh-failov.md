@@ -23,7 +23,7 @@
 
 Где:
 
-- `language_attributes();` - определение языка сайта
+- `language_attributes();` - устанавливает язык в зависимости от настроек WP
 - `bloginfo('charset');` - определение кодировки сайта
 - `bloginfo('name');` - вывод имени блога
 - `bloginfo('stylesheet_url');` - подключение style.css темы или `<?php echo get_stylesheet_uri(); ?>`

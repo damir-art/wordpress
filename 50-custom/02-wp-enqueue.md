@@ -1,3 +1,82 @@
+# Подключение CSS и JS-файлов
+
+    /**
+    * Функция для подключения стилей и скриптов
+    */
+    function cars_enqueue_scripts() {
+        // Подключаем файл css/style.css
+        // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, медиа
+        wp_enqueue_style( 'cars-css-style', get_template_directory_uri() . '/css/style.css', array(), '1.0', 'all' );
+
+        // Подключаем файл js/script.js
+        // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, разместить в футере
+        wp_enqueue_script( 'cars-js-script', get_template_directory_uri() . '/js/script.js', array(), '1.0', true );
+
+        // Нужен для формы комментариев
+        if( is_singular() && comments_open() && get_option( 'thread_comments' )) {
+            wp_enqueue_script( 'comment-reply' );
+        }
+    }
+    // Хук к которому цепляем cars_enqueue_scripts()
+    add_action( 'wp_enqueue_scripts', 'cars_enqueue_scripts');
+
+- cars_enqueue_scripts() - функция выводится внутри `wp_head()` или `wp_footer()`
+- `уникальный идентификатор`, если это бибилиотека например `bootstrap`, то префикс названия темы не нужен, как и окончание `.css`, это необходимо чтобы одни и те же библиотеки загруженные плагинами не конфликтовали с вашими
+- массив зависимых файлов, например если ваш скрипт использует `jquery` или несколько CSS-стилей которые должны подключаться поочередно, в качестве названий элементов используются `уникальные идентификаторы`
+
+## Вставка данных в head
+wp_head() - экшн для вставки кода перед тегом `</head>`
+
+    /**
+    * Функция для подключения данных в head
+    */
+    function cars_wp_head() {
+        echo '<meta name="author" content="damir" />';
+    }
+    add_action( 'wp_head', 'cars_wp_head' );
+
+## Вставка данных в footer
+
+    /**
+    * Функция для подключения данных в футере
+    */
+    function cars_wp_footer() {
+        echo 'Подвал сайта';
+    }
+    add_action( 'wp_footer', 'cars_wp_footer' );
+
+## Вставка данных в body_class
+
+    /**
+    * Функция для подключения классов в body
+    */
+    function cars_body_class($classes) {
+        if(is_front_page()) {
+            $classes[] = 'main_class'; // Дополняем классы WorpPress своими
+        } elseif(is_singular()) {
+            $classes[] = 'single_class';
+        }
+        return $classes;
+    }
+    add_filter( 'body_class', 'cars_body_class' );
+
+## Скрипты WordPress по-умолчанию
+- jquery (даже подключать не надо, уже подключен)
+
+Остальные нужно подключать через `wp_enqueue_script()`:
+- https://developer.wordpress.org/reference/functions/wp_enqueue_script/
+
+## wp_register_style(), wp_register_script()
+Аналог wp_enqueue_style(), который регистрирует стиль, но не подключает его к сайту
+
+    wp_register_style( $handle:string, $src:string|boolean, $deps:array, $ver:string|boolean|null, $media:string )
+
+Аналог wp_enqueue_script(), который регистрирует скрипт, но не подключает его к сайту
+    
+    wp_register_script( $handle:string, $src:string|boolean, $deps:array, $ver:string|boolean|null, $in_footer:boolean )
+
+Позже подключаем зарегистрированный стиль или скрипт, в каком либо файле сайта `wp_enqueue_style('ID')` или `wp_enqueue_script('ID')`
+
 ## Правильно подключаем CSS и JS файлы
 Правильно подключаем CSS-стили и JS-скрипты верстки макета, чтобы они не конфликтовали друг с другом, в том числе и с файлами плагинов.
 
@@ -51,3 +130,8 @@
 Пользовательский скрипта который зависит от плагина слайдера и jQuery:
 
     ['jq', 'slider'],
+
+## Пример №2
+
+## Итог
+- все скрипты и стили нужно подключать через файл `functions.php`
