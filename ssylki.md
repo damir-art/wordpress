@@ -13,4 +13,5 @@
 * https://misha.blog - Миша Рудрастых
 
 ## Ютуб
-* https://www.youtube.com/user/wpdummy13/featured - Финты WordPress
+- https://www.youtube.com/user/wpdummy13/featured - Финты WordPress
+- https://www.youtube.com/channel/UC7b-Bnbr1iUht2yENLxo_TQ - разные задачи
