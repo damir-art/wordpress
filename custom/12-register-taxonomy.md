@@ -2,9 +2,31 @@
 Создание пользовательских таксономий.
 Таксономия - это то, как записи разбиваются на разные категории или метки.
 Пост (post) - нативный тип записи, имеет таксономию: рубрики и метки.
-У каждого типа записи должна быть своя таксономия, так можно быстрее, удобнее и рпавильней формиравать запросы к базе данных. 
+У каждого типа записи должна быть своя таксономия, так можно быстрее, удобнее и правильней формиравать запросы к базе данных. 
 
 - register_taxonomy()
+
+Код:
+
+    function am_register_taxonomy() {
+        register_taxonomy(
+            'brand',
+            'product',
+            array(
+                'label' => 'Brand',
+                // 'rewrite' => array( 'slug' => 'brand' )
+            )
+        );
+        register_taxonomy(
+            'brand_category',
+            'product',
+            array(
+                'label' => 'Brand category',
+                // 'rewrite' => array( 'slug' => 'brand-category' )
+            )
+        );
+    }
+    add_action( 'init', 'am_register_taxonomy' );
 
 Пример создания таксономии:
 

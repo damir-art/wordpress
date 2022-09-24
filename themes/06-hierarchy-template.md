@@ -59,3 +59,9 @@
 
 ## Папки темы WordPress
 Помимо файл-шаблонов в теме WordPress могут быть еще и различные папки содержащие файлы скриптов JavaScript, стилей CSS, изображений дизайна темы, шрифтов и т.д.
+
+## archive.php
+- the_archive_title() - имя архива
+- the_archive_description() - описание архива
+- archive-posttype.php - имя файла архива шаблона
+- single-posttype.php - имя файла одиночной записи шаблона

@@ -1,6 +1,31 @@
 # Пользовательские типы записей
 Создание пользовательских типов записей.
 
+Рабочий скрипт:
+
+    function am_register_post_type() {
+        register_post_type('am_product',
+            array(
+                'labels' => array(
+                    'name'          => 'Продукты',
+                    'singular_name' => 'Продукт',
+                    'add_new'       => 'Добавить продукт',
+                ),
+                'menu_position' => 2,
+                'supports'      => array('title','editor'),
+                'public'        => true, // false, технический не публичный post type
+                'has_archive'   => true, // будет ли доступна страница архивов у post type
+                // 'rewrite'    => array('slug' => 'products'),    // свое ЧПУ для post type
+                // 'taxonomies' => ['am_product_brand', 'am_product_category'] // какие таксономии привязаны к post type, не нужно делать если есть привязка в register_taxonomy
+                // 'show_in_rest' => true // включение гутенберга для поста
+            )
+        );
+    }
+    add_action( 'init', 'am_register_post_type');
+
+Шаблон архива: ``  
+Шаблон одиночного поста: ``
+
 По-умолчанию в WordPress существует два типа записей (типа контента) это посты и страницы, но можно создавать свои собственные.
 
 Пользовательские записи при постраничной навигации выводятся в шаблонах с именем `archive-Name.php`.
@@ -8,6 +33,33 @@
 - `register_post_type()` создает новый тип записи, содержит два параметра `имя записи` и массив
 - `init` хук к оторому прикрепляется пользовательская функция
 
+## Простой код
+
+    // Если используется таксономия, то сначала прописывается она, потом её прописывают внутри регистрации поста
+    register_taxonomy( ... );
+
+    function am_register_post_type() {
+        register_post_type('product',
+            array(
+                'labels' => array(
+                    'name' => 'Товары',
+                    'singular_name' => 'Товар', // Например выводится в плагине ACF к какому типу записи прикрепить поле
+                    'add_new' => 'Добавить товар',
+                ),
+                'menu_position' => 2,
+                'supports' => array('title','editor','thumbnail'),
+                'public' => true,
+                'taxonomies' => ['brand']
+            )
+        );
+    }
+    add_action( 'init', 'am_register_post_type');
+
+- product - идентификатор записи типа `post` или `page`
+- `'name' => 'Товары',` - название в меню админики
+
+
+## Далее
 Код:
 
     // Регистрация пользовательских типов записей
@@ -31,7 +83,7 @@
                     'menu_name'          => 'Новости'                   // Название в меню
                 ),
                 'public'             => true,
-                'has_archive'        => true,                               // true - регистарция URL под этот тип записей
+                'has_archive'        => true,                               // true - регистрация URL под этот тип записей
                 'menu_position'      => 20,
                 'menu_icon'          => 'dashicons-welcome-write-blog',     // _po_dist_path( 'img/news.png' )
                 'supports'           => [ 'title', 'editor', 'thumbnail' ], // title (должен быть всегда), 'editor', 'author', 'thumbnail', 'excerpt', 'comments'
@@ -116,11 +168,15 @@
             'car',
             array(
                 'label' => __( 'Year' ),
-                'rewrite' => array( 'slug' => 'years' ),
-                'capabilities' => array(
-                    'assign_terms' => 'edit_guides',
-                    'edit_terms' => 'publish_guides'
-                )
+                // 'rewrite' => array( 'slug' => 'years' )
+            )
+        );
+        register_taxonomy(
+            'year',
+            'car',
+            array(
+                'label' => __( 'Year' ),
+                // 'rewrite' => array( 'slug' => 'years' )
             )
         );
     }
@@ -254,3 +310,5 @@ add_action('init', 'reviews_post_types');
 * https://wp-kama.ru/id_8218/taksonomii-v-wordpress.html
 * https://wp-kama.ru/id_8902/metadannye-v-wordpress.html
 * **Плагин:** https://ru.wordpress.org/plugins/custom-post-type-ui/
+
+Регистрировать пользовательские посты в файле functions.php не рекомендуется, нужно делать это в отдельном плагине.

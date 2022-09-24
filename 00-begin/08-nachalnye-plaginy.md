@@ -3,10 +3,11 @@
 
 Начальные плагины:
 - Code Snippets
+- Duplicator - перенос сайта, бэкап, клонирование
+- Contact Form 7
+- Advanced Custom Fields (ACF)
 - Akismet Anti-Spam
 - Cyr-To-Lat
-- Advanced Custom Fields (ACF)
-- Contact Form 7
 - Yoast SEO
 - Final Tiles Gallery (фотогалерея)
 

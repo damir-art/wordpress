@@ -1,20 +1,15 @@
 # Меню
+`Админ > Внешний вид > Меню`
+
 Создание меню:
+- регистрация области(ей) меню в `functions.php`
 - создание меню в админке
-- регистрация области меню в `functions.php`
 - вывод меню в шаблоне
 
-## Создание меню в админке
-`Админ > Внешний вид > Меню`:
-- пишем имя меню (желательно английскими буквами, можно с пробелами и начинать в верхнем регистре)
-- добавляем в меню необходимые ссылки: страницы, посты и т.п.
-- нажимаем создать меню
-- в админке можно создать сколько угодно меню
-- созданные в админке меню выводим через **области**
-- код областей создается в файле `functions.php`
-- код вывода областей создается в файлах шаблонах
+Для меню можно задавать CSS-классы в БЭМ формате, для контейнера, списка, элементов, ссылок, активных ссылок/элементов и т.д. см: https://www.youtube.com/watch?v=US2y59bfilk
 
 ## Регистрация области в `functions.php`
+В админке меню появится после её регистрации в functions.php
 
     /**
     * Функция для создания меню в WordPress
@@ -26,6 +21,15 @@
         ));
     }
     add_action( 'after_setup_theme', 'cars_register_menus' ); // Хук для подключения меню
+
+## Создание меню в админке
+- пишем имя меню (желательно английскими буквами, можно с пробелами и начинать в верхнем регистре)
+- добавляем в меню необходимые ссылки: страницы, посты и т.п.
+- нажимаем создать меню
+- в админке можно создать сколько угодно меню
+- созданные в админке меню выводим через **области**
+- код областей создается в файле `functions.php`
+- код вывода областей создается в файлах шаблонах
 
 ## Вывод меню в шаблоне
 Вывод меню в шаблоне:
@@ -41,7 +45,80 @@
         )
     );
 
+    /**
+    * Формируем меню по БЭМ
+    */
+    wp_nav_menu(
+        array(
+            'theme_location' => 'top_menu',         // название области меню, указывается при регистрации в functions.php
+            'container' => 'nav',                   // контейнер меню, указываем какими тегами обрамить меню ul, по-умолчанию div, false если не нужно
+            'container_class' => 'nav header__nav', // класс для контейнера меню, по умолчанию menu-{menu slug}-container (menu-top-menu-container)
+            'items_wrap' => '<ul class="%2$s">%3$s</ul>', // удаляем id из ul, не прописываем его
+            'menu_class' => 'nav__lists',           // ul, добавит CSS-класс для меню, по-умолчанию menu
+        )
+    );
+
 Все параметры вывода меню: https://developer.wordpress.org/reference/functions/wp_nav_menu/
+
+Вывод по `БЭМ` (https://www.youtube.com/watch?v=US2y59bfilk) многоуровневое меню, активная ссылка:
+
+    /**
+    * Функция для создания меню в WordPress
+    */
+    function am_register_menus() {
+        register_nav_menus(array(
+            'top_menu' => 'Основное меню сверху сайта', // Область для админки
+            'left_menu' => 'Основное меню в слева сайта', // Область для админки
+        ));
+    }
+    add_action( 'after_setup_theme', 'am_register_menus' ); // Хук для подключения меню
+
+    /*
+    * Настройки wp_nav_menu через хук
+    */
+    function am_wp_nav_menu_args($args = 'top_menu') {
+        if($args['theme_location'] === 'top_menu') {
+            $args['container']       = 'nav';                        // контейнер меню, указываем какими тегами обрамить меню ul, по-умолчанию div, false если не нужно
+            $args['container_class'] = 'nav header__nav';            // класс для контейнера меню, по умолчанию menu-{menu slug}-container (menu-top-menu-container)
+            $args['items_wrap']      = '<ul class="%2$s">%3$s</ul>'; // удаляем id из ul, не прописываем его
+            $args['menu_class']      = 'nav__lists';                 // ul, добавит CSS-класс для меню, по-умолчанию menu
+        }
+        return $args;	
+    }
+    add_filter('wp_nav_menu_args', 'am_wp_nav_menu_args');
+
+    /**
+    * Удаляем id у элементов li, локация top_menu
+    */
+    function am_delete_id_item_menu($menu_id, $item, $args, $depth) {
+        // Проверяем что изменяем меню из области top_menu
+        return $args->theme_location === 'top_menu' ? '' : $menu_id;
+    }
+    add_filter('nav_menu_item_id', 'am_delete_id_item_menu', 10, 4);
+
+    /**
+    * Функция для добавления/удаления классов li элементам, локация top_menu
+    */
+    function am_add_css_class_item_menu( $classes, $item, $args, $depth ) {
+        if ($args->theme_location === 'top_menu') {
+                $classes = [
+                    'nav__list'
+                ];
+        }
+        return $classes;
+    }
+    add_filter( 'nav_menu_css_class', 'am_add_css_class_item_menu', 10, 4 );
+
+    /**
+    * Функция для добавления/удаления классов a ссылкам, локация top_menu
+    */
+    function am_add_css_class_link_menu($atts, $item, $args, $depth) {
+        if ($args->theme_location === 'top_menu') {
+            $atts['class'] = 'nav__link locale-menu';
+        }
+        return $atts;
+    }
+    add_filter( 'nav_menu_link_attributes', 'am_add_css_class_link_menu', 10, 4 );
 
 ## Дополнительные параметры
 Дополнительные параметры вывода меню в шаблоне:

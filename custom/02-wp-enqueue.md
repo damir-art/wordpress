@@ -1,4 +1,7 @@
 # Подключение CSS и JS-файлов
+`wp_enqueue_style()` - регистрирует и подключает css файл  
+`wp_enqueue_script()` - регистрирует и подключает js файл  
+`wp_enqueue_scripts` - хук для работы с файлами стилей и скриптов
 
     /**
     * Функция для подключения стилей и скриптов
@@ -21,8 +24,12 @@
     add_action( 'wp_enqueue_scripts', 'cars_enqueue_scripts');
 
 - cars_enqueue_scripts() - функция выводится внутри `wp_head()` или `wp_footer()`
-- `уникальный идентификатор`, если это бибилиотека например `bootstrap`, то префикс названия темы не нужен, как и окончание `.css`, это необходимо чтобы одни и те же библиотеки загруженные плагинами не конфликтовали с вашими
+- `уникальный идентификатор`, если это библиотека например `bootstrap`, то префикс названия темы не нужен, как и окончание `.css`, это необходимо чтобы одни и те же библиотеки загруженные плагинами не конфликтовали с вашими
+- путь до файла, можно использовать CDN
+- обязательны только два первых параметра идентификатор и путь к файлу
 - массив зависимых файлов, например если ваш скрипт использует `jquery` или несколько CSS-стилей которые должны подключаться поочередно, в качестве названий элементов используются `уникальные идентификаторы`
+- у стилей и скриптов могут быть одинаковые идентификаторы, например `bootstrap`, wordpress добавляет для стилей и скриптов постфиксы
+- скрипты подключаются по порядку как указано в функции
 
 ## Вставка данных в head
 wp_head() - экшн для вставки кода перед тегом `</head>`
@@ -108,13 +115,17 @@ wp_head() - экшн для вставки кода перед тегом `</hea
 - false/true - подключать файл в хедере или подвале
 
 ## Подключаем jQuery от WordPress
-У WordPress имеется собственный файл jQuery. Вместо строки:
-    
+У WordPress имеется собственный файл jQuery.
+
+Вместо строки:
+
     wp_enqueue_script('hookUpJquery', get_template_directory_uri().'/js/jquery-1.11.1.min.js');
 
 Вставляем:
 
     wp_enqueue_script('jquery');
+
+jQuery подключается в режиме noConflict, вместо доллара в начале нужно прописать jQuery.
 
 ## Пример
 
@@ -135,3 +146,58 @@ wp_head() - экшн для вставки кода перед тегом `</hea
 
 ## Итог
 - все скрипты и стили нужно подключать через файл `functions.php`
+
+## Функции и примеры
+- wp_register_script() - Регистрирует js файл.
+- wp_enqueue_script() - Регистрирует и подключает js файл.
+- wp_dequeue_script() - Удаляет файл из очереди на вывод.
+- wp_add_inline_script() - Добавляет JS код к зарегистрированному скрипту.
+- wp_deregister_script() - Отменяет регистрацию файла.
+- wp_script_add_data() - Добавляет данные скрипту. Пример: скрипт только для «IE 6», «lt IE 9».
+- wp_localize_script() - Добавляет данные перед указанным скриптом.
+- wp_script_is() - Был ли файл зарегистрирован/ожидает вывода/выведен.
+- wp_register_style() - Регистрирует css файл.
+- wp_enqueue_style() - Регистрирует и подключает css файл.
+- wp_dequeue_style() - Удаляет файл из очереди на вывод.
+- wp_add_inline_style() - Добавляет стили прямо в html документ.
+- wp_deregister_style() - Отменяет регистрацию файла.
+- wp_style_add_data() - Добавляет данные стилям. Пример: стили только для «IE 6», «lt IE 9».
+- wp_style_is() - Был ли файл зарегистрирован/ожидает вывода/выведен.
+
+Пример:
+
+    add_action( 'wp_enqueue_scripts', 'add_my_scripts' );    // Фронт
+    add_action( 'admin_enqueue_scripts', 'add_my_scripts' ); // Админка
+    add_action( 'login_enqueue_scripts', 'add_my_scripts' ); // wp-login.php
+    function add_my_scripts(){
+
+        if ( ! wp_script_is( 'my-script', 'enqueued' ) ) {
+            // Cкрипт my-script не добавлен в очередь
+        }
+        
+        if ( ! wp_style_is( 'my-style', 'registered' ) ) {
+            // Стили my-style не зарегистрированы
+        }
+        
+        wp_enqueue_script( 'my-script', 'src', ['deps'], '1.0', 'in_footer' );
+        wp_enqueue_style(  'my-style',  'src', ['deps'], '1.0', 'all' );
+        
+        wp_enqueue_style( 'theme-style', get_stylesheet_uri() ); // theme style.css
+        
+        wp_localize_script( 'my-script', 'myajax', [
+            'ajaxurl' => admin_url( 'admin-ajax.php' )
+        ] );
+        
+        wp_script_add_data( 'my-script', 'conditional', 'lt IE 9' );
+        wp_style_add_data(  'my-style',  'conditional', 'lt IE 9' )
+        
+        wp_add_inline_script( 'my-scripts', 'alert("Hello!");' );
+        wp_add_inline_style( 'my-style', '
+            .mycolor{
+                background: #fff;
+            }
+        ');
+        
+        wp_deregister_script( 'my-script' );
+        wp_deregister_style( 'my-style' );
+    }

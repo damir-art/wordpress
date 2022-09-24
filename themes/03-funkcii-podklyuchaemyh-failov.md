@@ -1,5 +1,5 @@
 # Функции подключаемых файлов
-После создания подключаемых файлов, туда нужно внедрить различные функции, рассмотрим их.
+После создания подключаемых файлов header.php, footer.php, туда нужно внедрить различные функции, рассмотрим их.
 
 ## header.php
 Схема header.php:
@@ -53,3 +53,25 @@
 Перед закрывающим тегом `body` удаляем все скрипты и вставляем `<?php wp_footer() ?>`
 
 `wp_footer()` - вызывает хук `wp_footer`, WordPress подключает сюда скрипты, которые нужно вставить в футер. Также этот хук выводит панель администратора сверху.
+
+## Основные функции
+Частоиспользуемые функции:
+
+- `<?php get_header(); ?>` - header.php
+- `<?php get_footer(); ?>` - footer.php
+- `<?php get_sidebar(); ?>` - sidebar.php
+- `get_stylesheet_uri()` - url файла темы style.css
+- `get_stylesheet_directory()` - путь до темы (где доч./род. style.css), нет `/` в конце
+- `get_template_directory()` - путь до род. темы (не дочерней), нет `/` в конце
+- `get_template_directory_uri()` - url род. темы (не дочерней), нет `/` в конце
+- `get_stylesheet_directory_uri()` - url темы (учитывает доч. темы), нет `/` в конце
+- `<?php get_template_part('file'); ?>`-  file.php
+- `<?php get_search_form(); ?>` - выводит форму поиска searchform.php в шаблоне
+- `<?php comments_template(); ?>` - шаблон комментариев comments.php
+- `get_parent_theme_file_path()` - путь файла род. темы (не дочерней)
+- `get_theme_file_path()`- путь файла доч./род. темы
+- `get_theme_root_uri()` - url папки с темами, нет `/` в конце
+- `get_theme_file_uri()` - url файла доч./род. темы
+- `get_parent_theme_file_uri()` - url файла род. темы
+- `locate_template()` - находит/подключает файл доч./род. темы
+- `load_template()` -  подключает файл (require_once)

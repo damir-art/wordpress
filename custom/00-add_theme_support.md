@@ -4,6 +4,7 @@ http://wp-kama.ru/function/add_theme_support
 **add_theme_support()** - функция позволяет регистрировать темам и плагинам, поддержку новых воможностей WordPress.
 
     add_theme_support( 'post-thumbnails' );      // поддержка миниатюр
+    add_theme_support( 'menus' );                // поддержка меню (создается автоматически через register_nav_menu())
     add_theme_support( 'custom-background' );    // изменение фона сайта из админки
     add_theme_support( 'custom-logo' );          // изменение логотипа через админку
     add_theme_support( 'custom-header' );        // изменение изображения в шапке сайта из админки
