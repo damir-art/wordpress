@@ -111,21 +111,30 @@
 
 Начальный robots.txt, дальше по ситуации:
 
-    User-agent: *
-    Disallow: /wp-admin
-    Disallow: /wp-includes
-    Disallow: /wp-content/plugins
-    Disallow: /wp-content/cache
-    Disallow: /wp-json/
-    Disallow: /xmlrpc.php
-    Disallow: /readme.html
-    Disallow: /*?
-    Disallow: /?s=
-    Allow:    /*.css
-    Allow:    /*.js
-    Allow:    /wp-admin/admin-ajax.php
-    Host:     https://site.ru
-    Sitemap:  https://site.ru/wp-sitemap.xml
+    User-agent: *                   # Создаем секцию правил для роботов. * значит для всех
+                                    # роботов. Чтобы указать секцию правил для отдельного
+                                    # робота, вместо * укажите его имя: GoogleBot, Yandex.
+    Disallow: /cgi-bin              # Стандартная папка на хостинге.
+    Disallow: /wp-admin/            # Закрываем админку.
+    Allow: /wp-admin/admin-ajax.php # Откроем аякс.
+    Disallow: /?                    # Все параметры запроса на главной.
+    Disallow: *?s=                  # Поиск.
+    Disallow: *&s=                  # Поиск.
+    Disallow: /search               # Поиск.
+    Disallow: /author/              # Архив автора.
+    Disallow: */embed$              # Все встраивания.
+    Disallow: */xmlrpc.php          # Файл WordPress API
+    Disallow: *utm*=                # Ссылки с utm-метками
+    Disallow: *openstat=            # Ссылки с метками openstat
+
+    # Одина или несколько ссылок на карту сайта (файл Sitemap). Это независимая
+    # директива и дублировать её для каждого User-agent не нужно. Так например
+    # Google XML Sitemap создает 2 карты сайта:
+    Sitemap: http://example.com/sitemap.xml
+    Sitemap: http://example.com/sitemap.xml.gz
+
+    # Версия кода: 2.0
+    # Не забудьте поменять `example.com` на ваш сайт.
 
 Также с версии WordPress 5.5 по-умолчанию установливается XML-карта сайта, поэтому ставить для этого дополнительные плагины нет смысла.
 

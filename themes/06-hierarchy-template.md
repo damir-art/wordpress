@@ -65,3 +65,7 @@
 - the_archive_description() - описание архива
 - archive-posttype.php - имя файла архива шаблона
 - single-posttype.php - имя файла одиночной записи шаблона
+
+## Ссылки
+- https://wp-kama.ru/id_7654/ierarhiya-fajlov-temy-shablona.html
+- https://developer.wordpress.org/themes/basics/template-hierarchy/

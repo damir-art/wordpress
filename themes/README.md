@@ -21,17 +21,22 @@ WordPress это набор файлов, которые управляют ко
 3. Файлы плагинов: `/wp-content/plugins/`
 4. Загруженные пользователем файлы (изображения, документы и т.п.): `/wp-content/uploads/`
 
-## Где создаём тему
-Тему создаём в папке `/wp-content/themes/`:
-- При именовании темы используйте префикс (этот же префикс вы будете использовать при именовании своих функций)
-- Создаём папку например `dmsite`, где `dm` это префикс
-- Внутрь папки `dmsite` помещаем два файла: style.css и index.php
-- Тема готова
+## Создаём свою тему WordPress
+**Тема** - это набор различных файлов и папок размещенных в определённом месте WordPress. У файлов должны быть определенные имена, относящиеся к WordPress. Внутри этих файлов размещается определённый код с использованием функций WordPress.  
+**Файл-шаблон** - это файл, являющийся частью темы WordPress.  
 
-Далее работаем с файлами style.css и index.php
+Где хранятся темы WordPress? Темы хранятся по пути `/wp-content/themes/`
+
+Чтобы создать свою тему и подключить её к WordPress, нужно в папке `/wp-content/themes/`, создать папку с каким нибудь именем, например `myTheme` и в этой папке разместить два файла: `style.css` и `index.php`
+
+Прежде чем приступить к созданию своей темы, нужно:
+- Скачать и установить последнюю версию CMS WordPress
+- Создать 10 любых записей
+- Создать по адресу /wp-content/themes/ папку myTheme
+- В папке myTheme создать два пустых файла index.php и style.css
 
 ## index.php
-Простой шаблон с шапкой, циклом и подвалом. Файл стилей подключен.
+В файл `index.php` добавляем код ниже. Это простой шаблон с шапкой, местом под цикл и подвалом. Файл стилей подключен.
 
     <!DOCTYPE html>
     <html lang="en">
@@ -59,15 +64,8 @@ WordPress это набор файлов, которые управляют ко
 ## style.css
 Стили созданы с использованием grid. Подвал прижат к низу страницы.
 
-    /*
-        Theme Name: Название темы dmSite
-        Description: Краткое описание темы dmSIte
-        Author: Имя автора темы dmSite
-    */
-
-    /* @import url('css/style.css'); */
-
-    html, body {
+    html,
+    body {
       width: 100%;
       height: 100%;
     }
@@ -85,26 +83,35 @@ WordPress это набор файлов, которые управляют ко
       display: grid;
       gap: 16px;
       grid-template-rows: minmax(100px, auto) 1fr minmax(150px, auto);
-      grid-template-columns: 100%;
+      /* grid-template-columns: 100%; */
     }
 
-    header, main, footer {
+    header {
+      display: flex;
+      align-items: center;
       background-color: #34495e;
       padding-left: 16px;
       padding-right: 16px;
     }
 
-  header {
-    display: flex;
-    align-items: center;
-  }
+    .title-site {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
-  .title-site {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: none;
-  }
+    main {
+      background-color: #34495e;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    footer {
+      background-color: #34495e;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
 
 ## Файл-шаблоны темы
 
@@ -123,35 +130,5 @@ WordPress это набор файлов, которые управляют ко
 
 Файлы в основном относятся к теме WordPress и имеют определённые названия, папки темы можно называть как угодно.
 
-## Создаём свою тему WordPress
-**Тема** - это набор файлов различных и файлов.
-
-**Файл-шаблон** - это файл, являющийся частью темы WordPress.
-
-Где хранятся темы WordPress? Темы хранятся по пути `/wp-content/themes/`
-
-Чтобы создать свою тему и подключить её к WordPress, нужно в папке `themes`, создать папку с каким нибудь именем, например `myTheme` и в этой папке разместить два файла: style.css и index.php
-
-Прежде чем приступить к созданию своей темы, нужно:
-- Скачать и установить последнюю версию CMS WordPress
-- Создать 10 любых записей
-- Создать по адресу /wp-content/themes/ папку myTheme
-- В папке myTheme создать два пустых файла index.php и style.css
-
-## Создаём дочернюю тему
-- в папке `/wp-content/themes/` создаём тему с именем `themeName-child`
-- в папке `/wp-content/themes/themeName-child` создаём файл `style.css`
-
-В файле `style.css` записываем:
-
-    /*
-        Theme Name: themeName-child
-        Template: themeName
-    */
-
-    @import url('../themeName/style.css');
-
-- дочерняя тема перед за основу файл-шаблоны родительской
-  - копируем файл-шаблон родительской, подстраиваем под себя в дочерней
-- function.php не перезаписывается, а дополняется
-  - сначала срабатывается function.php из дочерней, потом из родительской
+## Разное
+- название темы, это его ID и оно должно быть уникальным, отличаться от названий в репозитории
