@@ -113,22 +113,5 @@ WordPress это набор файлов, которые управляют ко
       padding-right: 16px;
     }
 
-## Файл-шаблоны темы
-
-    css/
-    design/
-    js/
-    404.php
-    footer.php
-    functions.php
-    header.php
-    index.php
-    page.php
-    screenshot.png (1200x900px)
-    single.php
-    style.css
-
-Файлы в основном относятся к теме WordPress и имеют определённые названия, папки темы можно называть как угодно.
-
 ## Разное
 - название темы, это его ID и оно должно быть уникальным, отличаться от названий в репозитории
