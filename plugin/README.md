@@ -94,6 +94,14 @@
 
     // var_dump( BANNER_PLUGIN_DIR, BANNER_PLUGIN_URL, BANNER_PLUGIN_NAME ); // см. исходный код на главной
 
+## Подключаем класс активации плагина
+
+    // Подключаем класс активации плагина
+    function banner_activate() {
+      require_once BANNER_PLUGIN_DIR . 'includes/class-banner-activate.php';
+    }
+    register_activation_hook( __FILE__, 'banner_activate' );
+
 ## Разное
 Вместо плагина можно использовать файл functions.php, даже написать большой плагин подключая его файлы.
 
