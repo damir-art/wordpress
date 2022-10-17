@@ -48,8 +48,8 @@
     * Author:      Имя автора
     * Version:     Версия плагина, например 1.0
     *
-    * Text Domain: ID перевода, указывается в load_plugin_textdomain()
-    * Domain Path: Путь до файла перевода (относительно папки плагина)
+    * Text Domain: ID перевода, указывается в load_plugin_textdomain() (совпадает с именем плагина, например banner)
+    * Domain Path: Путь до файла перевода (относительно папки плагина) (например, /languages)
     * Requires at least: 2.5 (самая низкая версия WordPress при которой работает плагин)
     * Requires PHP: 5.4 (минимальная версия PHP)
     *
