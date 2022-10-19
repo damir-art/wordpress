@@ -3,17 +3,22 @@
 `wp_enqueue_script()` - регистрирует и подключает js файл  
 `wp_enqueue_scripts` - хук для работы с файлами стилей и скриптов
 
+## Для обычной темы
+
     /**
     * Функция для подключения стилей и скриптов
     */
-    function cars_enqueue_scripts() {
-        // Подключаем файл css/style.css
-        // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, медиа
-        wp_enqueue_style( 'cars-css-style', get_template_directory_uri() . '/css/style.css', array(), '1.0', 'all' );
+    function legioner_enqueue_scripts() {
+        // Подключаем файл style.css
+        wp_enqueue_style( 'legioner-style', get_stylesheet_uri(), array(), '1.0', 'all' );
 
-        // Подключаем файл js/script.js
+        // Подключаем файл assets/css/style.css
+        // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, медиа
+        wp_enqueue_style( 'legioner-css-style', get_template_directory_uri() . '/assets/css/style.css', array(), '1.0', 'all' );
+
+        // Подключаем файл assets/js/script.js
         // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, разместить в футере
-        wp_enqueue_script( 'cars-js-script', get_template_directory_uri() . '/js/script.js', array(), '1.0', true );
+        wp_enqueue_script( 'legioner-js-custom', get_template_directory_uri() . '/assets/js/custom.js', array(), '1.0', true );
 
         // Нужен для формы комментариев
         if( is_singular() && comments_open() && get_option( 'thread_comments' )) {
@@ -21,7 +26,7 @@
         }
     }
     // Хук к которому цепляем cars_enqueue_scripts()
-    add_action( 'wp_enqueue_scripts', 'cars_enqueue_scripts');
+    add_action( 'wp_enqueue_scripts', 'legioner_enqueue_scripts');
 
 - cars_enqueue_scripts() - функция выводится внутри `wp_head()` или `wp_footer()`
 - `уникальный идентификатор`, если это библиотека например `bootstrap`, то префикс названия темы не нужен, как и окончание `.css`, это необходимо чтобы одни и те же библиотеки загруженные плагинами не конфликтовали с вашими
@@ -30,6 +35,74 @@
 - массив зависимых файлов, например если ваш скрипт использует `jquery` или несколько CSS-стилей которые должны подключаться поочередно, в качестве названий элементов используются `уникальные идентификаторы`
 - у стилей и скриптов могут быть одинаковые идентификаторы, например `bootstrap`, wordpress добавляет для стилей и скриптов постфиксы
 - скрипты подключаются по порядку как указано в функции
+
+## Для дочерней темы
+Для доступа к файлам дочерней темы используется функция `get_template_directory_uri()`
+
+    /**
+    * Функция для подключения стилей и скриптов
+    */
+    function legioner_enqueue_scripts() {
+        // Подключаем файл style.css родительской темы
+        // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, медиа
+        wp_enqueue_style( 'legioner-style', get_template_directory_uri() . '/style.css', array(), '1.0', 'all' );
+
+        // Подключаем файл assets/css/style.css дочерней темы
+        // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, медиа
+        wp_enqueue_style( 'legioner-css-style', get_stylesheet_directory_uri() . '/assets/css/style.css', array(), '1.0', 'all' );
+
+        // Подключаем файл assets/js/script.js
+        // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, разместить в футере
+        wp_enqueue_script( 'legioner-custom', get_template_directory_uri() . '/assets/js/custom.js', array(), '1.0', true );
+
+        // Нужен для формы комментариев
+        // if( is_singular() && comments_open() && get_option( 'thread_comments' )) {
+        //     wp_enqueue_script( 'comment-reply' );
+        // }
+    }
+    // Хук к которому цепляем cars_enqueue_scripts()
+    add_action( 'wp_enqueue_scripts', 'legioner_enqueue_scripts');
+
+Чем отличаются функции `get_stylesheet_directory_uri()` и `get_stylesheet_directory()`:
+
+    echo get_stylesheet_directory_uri() . '<br />'; // http://legioner.local/wp-content/themes/legioner-child
+    echo get_stylesheet_directory() . '<br />';  // D:\OSPanel\domains\legioner.local/wp-content/themes/legioner-child
+
+Основные функции подключения тем: https://wp-kama.ru/function-cat/podklyuchenie-faylov
+
+## Для дочерней темы с Bootstrap
+
+    /**
+    * Функция для подключения стилей и скриптов
+    */
+    function legioner_enqueue_scripts() {
+    // Подключаем файл style.css родительской темы
+    // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, медиа
+    wp_enqueue_style( 'legioner-style', get_template_directory_uri() . '/style.css', array(), '1.0', 'all' );
+
+    // Подключаем стиль Bootstrap exp/bootstrap/css/bootstrap.css
+    // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, медиа
+    wp_enqueue_style( 'legioner-bootstrap', get_stylesheet_directory_uri() . '/exp/bootstrap/css/bootstrap.css', array(), '1.0', 'all' );
+
+    // Подключаем файл assets/css/style.css дочерней темы
+    // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, медиа
+    wp_enqueue_style( 'legioner-css-style', get_stylesheet_directory_uri() . '/assets/css/style.css', array(), '1.0', 'all' );
+
+    // Подключаем скрипт Bootstrap exp/bootstrap/js/bootstrap.bundle.js
+    // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, разместить в футере
+    wp_enqueue_script( 'legioner-bootstrap', get_stylesheet_directory_uri() . '/exp/bootstrap/js/bootstrap.bundle.js', array(), '1.0', true );
+
+    // Подключаем файл assets/js/script.js
+    // Аргументы: уникальный идентификатор, путь к файлу, массив зависимых файлов, версия скрипта, разместить в футере
+    wp_enqueue_script( 'legioner-custom', get_stylesheet_directory_uri() . '/assets/js/custom.js', array(), '1.0', true );
+
+    // Нужен для формы комментариев
+    // if( is_singular() && comments_open() && get_option( 'thread_comments' )) {
+    //     wp_enqueue_script( 'comment-reply' );
+    // }
+    }
+    // Хук к которому цепляем cars_enqueue_scripts()
+    add_action( 'wp_enqueue_scripts', 'legioner_enqueue_scripts');
 
 ## Вставка данных в head
 wp_head() - экшн для вставки кода перед тегом `</head>`
@@ -67,11 +140,34 @@ wp_head() - экшн для вставки кода перед тегом `</hea
     }
     add_filter( 'body_class', 'cars_body_class' );
 
-## Скрипты WordPress по-умолчанию
-- jquery (даже подключать не надо, уже подключен)
+## Подключаем jQuery
+jQuery уже есть в WordPress, подключать его не нужно, например можно сразу написать скрипт:
 
-Остальные нужно подключать через `wp_enqueue_script()`:
-- https://developer.wordpress.org/reference/functions/wp_enqueue_script/
+    jQuery(function($) {
+        alert('hello')
+    })
+
+Зачем сначала вводим `jQuery` а не знак доллара `$`: https://wp-kama.ru/handbook/wp-js/jquery-noconflict
+
+Но обычно еще добавляют зависимость `array('jquery')`:
+
+    wp_enqueue_script('jquery');
+    wp_enqueue_script( 'legioner-custom', get_stylesheet_directory_uri() . '/assets/js/custom.js', array('jquery'), '1.0', true );
+
+Зависимость нужна чтобы точно быть уверенным что наш скрипт подключится после библиотеки jQuery.
+
+Если в нашей верстке есть разный скрипты которые используют разные версии библиотек jQuery, то их нужно поочередно отключать и подключать через `wp_deregister_script()` и `wp_register_script()` пример:
+
+    wp_deregister_script( 'jquery' );
+    wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+    wp_enqueue_script( 'jquery' );
+
+Тут подробнее: https://wp-kama.ru/id_4579/podklyuchenie-jquery-c-cdn-google-s-dinamicheskim-opredeleniem-versii-jquery.html
+
+## Скрипты WordPress по-умолчанию
+Скрипты которые уже есть в WordPress: https://developer.wordpress.org/reference/functions/wp_enqueue_script/
+
+Их подключают как и jQuery, через `wp_enqueue_script('script_name')`.
 
 ## wp_register_style(), wp_register_script()
 Аналог wp_enqueue_style(), который регистрирует стиль, но не подключает его к сайту
