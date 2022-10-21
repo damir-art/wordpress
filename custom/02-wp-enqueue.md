@@ -154,7 +154,7 @@ jQuery уже есть в WordPress, подключать его не нужно
     wp_enqueue_script('jquery');
     wp_enqueue_script( 'legioner-custom', get_stylesheet_directory_uri() . '/assets/js/custom.js', array('jquery'), '1.0', true );
 
-Зависимость нужна чтобы точно быть уверенным что наш скрипт подключится после библиотеки jQuery.
+`wp_enqueue_script('jquery');` можно не подключать, а зависимость `array('jquery')` не ставить, работаь будет всё равно. Зависимость нужна чтобы точно быть уверенным что наш скрипт подключится после библиотеки jQuery.
 
 Если в нашей верстке есть разный скрипты которые используют разные версии библиотек jQuery, то их нужно поочередно отключать и подключать через `wp_deregister_script()` и `wp_register_script()` пример:
 

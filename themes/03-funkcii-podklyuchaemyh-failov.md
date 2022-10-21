@@ -6,20 +6,22 @@
 
     <!DOCTYPE html>
     <html <?php language_attributes(); ?>>
-        <head>
-            <meta charset="<?php bloginfo('charset'); ?>" />
-            <title><?php wp_title ('|', true, 'right'); bloginfo('name'); ?></title>
-            <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
-            <link rel="profile" href="http://gmpg.org/xfn/11" />
-            <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-            <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> &raquo; Лента" href="<?php bloginfo('rss2_url'); ?>" />
-            <?php wp_head(); ?> 
-        </head>
-        <body <?php body_class() ?> >
-            <div id="header">
-                <h1><?php bloginfo('name'); ?></h1>
-                <p><?php bloginfo('description'); ?></p>
-            </div>
+    <head>
+      <meta charset="<?php bloginfo('charset'); ?>" />
+      <title><?php wp_title ('|', true, 'right'); bloginfo('name'); ?></title>
+      <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
+      <link rel="profile" href="http://gmpg.org/xfn/11" />
+      <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+      <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> &raquo; Лента" href="<?php bloginfo('rss2_url'); ?>" />
+      <?php wp_head(); ?>
+    </head>
+    <body <?php body_class() ?> >
+    <?php wp_body_open(); ?>
+
+    <section class="section section--header">
+      <h1><?php bloginfo('name'); ?></h1>
+      <p><?php bloginfo('description'); ?></p>
+    </section>
 
 Где:
 
@@ -54,6 +56,9 @@
 
 `wp_footer()` - вызывает хук `wp_footer`, WordPress подключает сюда скрипты, которые нужно вставить в футер. Также этот хук выводит панель администратора сверху.
 
+## wp_body_open()
+Запускает хук `wp_body_open`. `<?php wp_body_open(); ?>` помещают сразу после открывающего тега `body`. С версии WP 5.2 эту функцию нужно использовать в теме (шаблоне), чтобы дать возможность разработчикам вставлять что-либо в самом начале тега `body`.
+
 ## Основные функции
 Частоиспользуемые функции:
 
@@ -75,3 +80,32 @@
 - `get_parent_theme_file_uri()` - url файла род. темы
 - `locate_template()` - находит/подключает файл доч./род. темы
 - `load_template()` -  подключает файл (require_once)
+
+## Весь код
+
+    <!DOCTYPE html>
+    <html <?php language_attributes(); ?>>
+    <head>
+      <meta charset="<?php bloginfo('charset'); ?>" />
+      <title><?php wp_title ('|', true, 'right'); bloginfo('name'); ?></title>
+      <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
+      <link rel="profile" href="http://gmpg.org/xfn/11" />
+      <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+      <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> &raquo; Лента" href="<?php bloginfo('rss2_url'); ?>" />
+      <?php wp_head(); ?>
+    </head>
+    <body <?php body_class() ?> >
+    <?php wp_body_open(); ?>
+
+    <section class="section section--header">
+      <h1><?php bloginfo('name'); ?></h1>
+      <p><?php bloginfo('description'); ?></p>
+    </section>
+
+    <section class="section section--footer">
+      footer
+    </section>
+
+    <?php wp_footer(); ?>
+    </body>
+    </html>

@@ -25,6 +25,8 @@
     get_sidebar($name) - sidebar-{name}.php
     get_footer($name)  - footer-{name}.php
 
+get_header($name, $arr) - вторым параметром можно передавать массив
+
 ## wp_head(), wp_footer()
 wp_head(), wp_footer() - крайне важные функции WordPress, отвечающие за совместимость плагинов, скриптов, подключения админ-панели и многое другое.
 
