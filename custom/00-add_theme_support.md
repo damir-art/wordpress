@@ -16,9 +16,9 @@ http://wp-kama.ru/function/add_theme_support
 ## Пример
     <?php
         // Начальные настройки сайта
-        add_action( 'after_setup_theme', 'po_setup' );
+        add_action( 'after_setup_theme', 'site_setup' );
 
-        function po_setup() {
+        function site_setup() {
             add_theme_support( 'custom-logo' );
             add_theme_support( 'title-tag' );
             add_theme_support( 'post-thumbnails' );
