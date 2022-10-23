@@ -12,7 +12,7 @@
 - `get_the_post_thumbnail()` - можно сохранить миниатюру в переменную
 - `get_the_post_thumbnail_url()` - возвращает ссылку на мииатюру поста
 - `thumbnail`, `medium`, `large`, `full`, `post-thumbnail` - миниатюры WordPress по-умолчанию
-  - `thumbnail` - 150x150px, миниатюра (thumb вроде синоним)
+  - `thumbnail` - 150x150px, миниатюра (thumb вроде 150 ширина, высота пропорционально)
   - `medium` - 300x300px, средний размер
   - `large` - 1024x1024px, крупный размер
   - `full` - полный размер
@@ -54,6 +54,33 @@ crop:
 - the_attachment_link() - выводит ссылку (тег a) вложения или страницы вложения
 - get_attachment_link() - получает URL на страницу вложения (на фронте)
 - wp_get_attachment_link() - получает ссылку (тег a) вложения или страницы вложения
+
+Пример, если миниатюры нет, то выводим дефолтное изображение:
+
+    if(has_post_thumbnail()) {
+      the_post_thumbnail( 'medium', array('class' => 'img-fluid') );
+    } else {
+      echo '<img class="img-fluid" src="https://picsum.photos/id/0/600/400" />';
+    }
+
+Пример, если код выше нужно разместить в нескольких файлах шаблонах, то его можно поместить в функцию, чтобы не повторяться (пишем в functions.php):
+
+    /**
+    * Вывод миниатюр, используем в файл-шаблонах
+    */
+    function legioner_thumb( $id, $size = 'medium', $class = 'img-fluid' ) {
+      $html = '<div class="mb-2">';
+        if(has_post_thumbnail()) {
+          $html .= get_the_post_thumbnail( $id, $size, array( 'class' => $class ) );
+        } else {
+          $html .= '<img class="img-fluid" src="https://picsum.photos/id/0/600/400" width="600" height="400" />';
+        }
+      $html .= '</div>';
+      return $html;
+    }
+
+    // Размещаем в файл шаблоне
+    echo legioner_thumb(get_the_ID());
 
 ## CSS стили
 Стандартные стили для миниатюр:
