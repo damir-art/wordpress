@@ -71,23 +71,15 @@
     search.php     - шаблон для вывода результатов поиска
     sidebar.php    - шаблон для вставки сайдбара
     single.php     - шаблон для поста
-    style.css      -
 
 Файлы в основном относятся к теме WordPress и имеют определённые названия (подробнее их рассмотрим в уроке `Иерархия шаблонов`), папки темы можно называть как угодно.
 
 Какие папки могут быть?
 - `inc`            - папка с файлами функций
 - `languages`      - папка с языковыми файлами
-- `template-parts` - папка с файлами содаржащие куски PHP-кода
-
-- template-parts - папка где хранят часто используемые куски кода шаблонов, например цикл
-  - функция используемая внутри цикла `get_template_part('template-parts/content', get_post_type())`
-  - файлы хранящиеся в папке `template-parts`
-    - content-none.php
-    - content-page.php
-    - content-search.php
-    - content.php
+- `template-parts` - папка с файлами содаржащие куски PHP-кода (см. файл `template-parts.md`)
 
 ## Ссылки
 - https://wp-kama.ru/id_7654/ierarhiya-fajlov-temy-shablona.html
 - https://developer.wordpress.org/themes/basics/template-hierarchy/
+- which template - плагин показывающий какой шаблон сейчас используется

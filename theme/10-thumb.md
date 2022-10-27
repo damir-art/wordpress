@@ -66,10 +66,10 @@ crop:
 Пример, если код выше нужно разместить в нескольких файлах шаблонах, то его можно поместить в функцию, чтобы не повторяться (пишем в functions.php):
 
     /**
-    * Вывод миниатюр, используем в файл-шаблонах
+    * Вывод миниатюр, используем в файл-шаблонах архивов
     */
     function legioner_thumb( $id, $size = 'medium', $class = 'img-fluid' ) {
-      $html = '<div class="mb-2">';
+      $html = '<div class="thumb-post mb-2">';
         if(has_post_thumbnail()) {
           $html .= get_the_post_thumbnail( $id, $size, array( 'class' => $class ) );
         } else {
