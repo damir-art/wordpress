@@ -1,16 +1,43 @@
 # Сайдбар
-Сайдбар это зона, где с помощью виджетов выводится контент: `Админка > Внешний вид > Виджеты`
+https://wp-kama.ru/function/register_sidebar  
+https://wp-kama.ru/function/register_sidebars  
 
-- регистрация сайдбара
-- наполнение сайдбара виджетами
-- вывод сайдбара в шаблоне
-- https://wp-kama.ru/function/register_sidebar
+Сайдбар это зона, где с помощью виджетов выводится контент: `Админка > Внешний вид > Виджеты`. Также имеется одноимённый шаблон sidebar.php
+
+- регистрация сайдбара `register_sidebar()`
+- наполнение сайдбара виджетами (заголовок для виджета задается отдельно, как отдельный блок, эти блоки потом можно сгруппировать чтобы например у заголовка и виджета была единая HTML-обертка)
+- вывод сайдбара `dynamic_sidebar()`, в шаблоне `sidebar.php` или любом другом: header.php, footer.php и т.п.
 
 Рабочий процесс:
 - register_sidebar() - регистрирует сайдбар в function.php
 - register_sidebars() - регистрирует несколько сайдбаров сразу в function.php
 - dynamic_sidebar() - выводит панель виджетов в шаблоне
 - id - не должен быть равен https://wordpress.stackexchange.com/questions/59973/what-is-allowed-as-an-id-argument-in-register-sidebar-args/59985#59985
+
+## Регистрация сайдара
+Код регистрации сайдбара с виджетами в functions.php:
+
+    /**
+    * Регистрация сайдбара с виджетами
+    */
+    function legioner_widgets_init(){
+      register_sidebar(
+        array(
+          'name' => 'Сайдбар в шапке сайта',
+          'id' => 'sidebar-header',
+          'before_widget' => '<div id="%1$s" class="widget %2$s">',
+          'after_widget' => '</div>'
+        )
+      );
+    }
+    add_action( 'widgets_init', 'legioner_widgets_init' );
+
+## Вывод сайдбара в шаблоне
+
+    if ( function_exists('dynamic_sidebar') )
+      dynamic_sidebar('sidebar-header');
+
+## Старая запись
 
 В файле `functions.php` прописываем:
 

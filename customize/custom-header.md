@@ -36,6 +36,7 @@ https://wp-kama.ru/function/add_theme_support#custom-header
 - `the_custom_header_markup()` - выводит HTML код для отображения картинки заголовка и подключает JS код для обработки видео заголовка, если оно доступно для текущего запроса
 - `get_custom_header()` - возвращает данные изображения заголовка
 - `register_default_headers()` - регистрация изображения заголовка по-умолчанию
+- `get_header_textcolor()` - цвет для шапки заголовка
 
 ## Пример
 В functions.php добавляем:

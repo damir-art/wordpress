@@ -63,7 +63,6 @@ Customize API - создаёт функционал, предварительн�
           array( // Args, including any custom ones.
             'label'    => 'Цвет ссылок',
             'section'  => 'colors', // ID секции
-            // 'settings' => 'legioner_link_color'
           )
         )
       );
@@ -116,3 +115,109 @@ Customize API - создаёт функционал, предварительн�
 ID секции можно посмотреть в HTML-коде, например `Свойства сайта` это `li` с `id` accordion-section-`title_tagline`.
 
 Можно создавать свои секции.
+
+## Создаём простой control checkbox
+https://developer.wordpress.org/reference/classes/wp_customize_control/  
+https://developer.wordpress.org/reference/classes/wp_customize_control/__construct/  
+
+При клике на checkbox, описание сайта пропадает. В качестве типа control могут быть: text' (по-умолчанию), 'checkbox', 'textarea', 'radio', 'select', and 'dropdown-pages'. Additional input types such as 'email', 'url', 'number', 'hidden', and 'date' are supported implicitly. Default 'text'.
+
+Настройка:
+
+    // Настройка для checkbox
+    $wp_customize->add_setting(
+      'legioner_checkbox',
+      array(
+        'default'   => false,
+        'transport' => 'refresh'
+      )
+    );
+
+    // Control для chekbox
+    $wp_customize->add_control(
+      'legioner_checkbox',
+      array(
+        'section' => 'title_tagline',
+        'label'   => 'Скрыть описание',
+        'type' => 'checkbox' // по-умолчанию тип текст
+      )
+    );
+
+## Создаём свою секцию
+Добавляем секцию с названием `Подвал`:
+
+    // Добавляем секцию с названием Подвал
+    $wp_customize->add_section(
+      'legioner_section_footer',
+      array(
+        'title' => 'Подвал',
+      )
+    );
+
+Чтобы секция появилась в настройках темы, нужно разместить внутри неё хотябы одну опцию (настройку):
+
+    // Настройка для Подвала
+    $wp_customize->add_setting(
+      'legioner_footer_copyright',
+      array(
+        'default'   => '@ИмяСайта - все права защищены',
+        'transport' => 'refresh', // перезагружает страницу после изменений, 'postMessage' работает как AJAX без перезагрузки (но нужно будет дополнительно написать JS-код)
+      )
+    );
+
+    // Control для Подвала
+    $wp_customize->add_control(
+      'legioner_footer_copyright',
+      array(
+        'section' => 'legioner_section_footer',
+        'label'   => 'Копирайт',
+      )
+    );
+
+Выввод настройки в шаблоне:
+
+    echo get_theme_mod('legioner_footer_copyright');
+
+## 'transport' => 'postMessage'
+https://codex.wordpress.org/Theme_Customization_API (Part 3: Configure Live Preview (Optional))  
+
+В настройках создаём возможность изменения даных на лету, через AJAX. В 'transport' устанавливаем 'postMessage':
+
+  // Настройка для Подвала
+  $wp_customize->add_setting(
+    'legioner_footer_copyright',
+    array(
+      'default'   => '@ИмяСайта - все права защищены',
+      'transport' => 'postMessage',
+    )
+  );
+
+Создаём файл `legioner-customize.js` помещаем его в папку со скриптами темы, например `legioner/assets/js`.
+
+    (function($) {
+
+      // Копирайт в подвале
+      wp.customize( 'legioner_footer_copyright', function( value ) {
+        value.bind( function( newval ) {
+          $( '.legioner_footer_copyright' ).html( newval );;
+        });
+      });
+
+    })( jQuery );
+
+Создаём хук для `customize_preview_init` и через него подключаем `legioner-customize.js`.
+
+    /**
+    * postMessage для настроек
+    */
+    function legioner_customizer_live_preview()
+    {
+      wp_enqueue_script( 
+          'legioner-customize',
+          get_template_directory_uri().'/assets/js/legioner-customize.js',
+          array( 'jquery', 'customize-preview' ),
+          '',
+          true
+      );
+    }
+    add_action( 'customize_preview_init', 'legioner_customizer_live_preview' );
