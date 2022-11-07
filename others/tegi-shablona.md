@@ -116,10 +116,6 @@
     get_template_part
     get_post_format
 
-## Условные теги
-    is_single
-    is_home
-
 ## Хуки и фильтры
     add_action
     add_filter

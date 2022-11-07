@@ -1,6 +1,5 @@
-# Пользовательские поля
-Создание пользовательских полей.
-
+# Мета боксы
+Произвольные поля, пользовательские поля.  
 Для записей и таксономий, можно добавлять свои пользовательские поля.
 
 - прописываем `add_post_meta()/update_post_meta()` в `function.php`, создание мета-поля
@@ -58,7 +57,8 @@
 
 ## Ссылки
 - https://wp-kama.ru/function/add_meta_box
-* https://wp-kama.ru/handbook/codex/metadata
-* https://wp-kama.ru/function/add_post_meta
-* https://wp-kama.ru/function/register_meta
-* **Плагин:** https://wordpress.org/plugins/advanced-custom-fields/ `Advanced Custom Fields` (Группы полей)
+- https://wp-kama.ru/function/get_post_meta
+- https://wp-kama.ru/handbook/codex/metadata
+- https://wp-kama.ru/function/add_post_meta
+- https://wp-kama.ru/function/register_meta
+- **Плагин:** https://wordpress.org/plugins/advanced-custom-fields/ `Advanced Custom Fields` (Группы полей)

@@ -1,27 +1,37 @@
 # Пользовательские типы записей
-Создание пользовательских типов записей.
+https://wp-kama.ru/function/register_post_type  
+https://developer.wordpress.org/resource/dashicons/  
+
+Создание пользовательских типов записей. Их обычно создают для плагинов, секций лендингов (команда, тарифы, слайдер, отзывы, портфолио и т.д.), дополнительных сущностей сайта (новости, каталог, статьи, отзывы, обзоры и т.д.).
 
 Рабочий скрипт:
 
-    function am_register_post_type() {
-        register_post_type('am_product',
-            array(
-                'labels' => array(
-                    'name'          => 'Продукты',
-                    'singular_name' => 'Продукт',
-                    'add_new'       => 'Добавить продукт',
-                ),
-                'menu_position' => 2,
-                'supports'      => array('title','editor'),
-                'public'        => true, // false, технический не публичный post type
-                'has_archive'   => true, // будет ли доступна страница архивов у post type
-                // 'rewrite'    => array('slug' => 'products'),    // свое ЧПУ для post type
-                // 'taxonomies' => ['am_product_brand', 'am_product_category'] // какие таксономии привязаны к post type, не нужно делать если есть привязка в register_taxonomy
-                // 'show_in_rest' => true // включение гутенберга для поста
-            )
-        );
+    /**
+    * Регистрация типа поста
+    */
+    function legioner_register_post_type() {
+      register_post_type('legioner_schedule',
+        array(
+          'labels' => array(
+              'name'          => 'Расписания',
+              'all_items'     => 'Все расписания',
+              'add_new'       => 'Добавить расписание',
+              'singular_name' => 'Расписание'
+          ),
+          'menu_position' => 2,
+          'supports'      => array('title', 'editor', 'thumbnail'), 
+          'public'        => true, // false - технический не публичный post type
+          'has_archive'   => true, // будет ли доступна страница архивов у post type
+          // 'rewrite'    => array('slug' => 'products'),    // свое ЧПУ для post type
+          // 'taxonomies' => ['am_product_brand', 'am_product_category'] // какие таксономии привязаны к post type, не нужно делать если есть привязка в register_taxonomy
+          // 'show_in_rest' => true // включение гутенберга для поста
+        )
+      );
     }
-    add_action( 'init', 'am_register_post_type');
+    add_action( 'init', 'legioner_register_post_type');
+
+- `legioner_schedule` - максимум 20 символов
+- `'supports' => array('title','editor'),` - по-умолчанию
 
 ## Шаблоны пользовательских постов
 - archive.php - шаблон архива
@@ -59,7 +69,6 @@
 
 - product - идентификатор записи типа `post` или `page`
 - `'name' => 'Товары',` - название в меню админики
-
 
 ## Далее
 Код:

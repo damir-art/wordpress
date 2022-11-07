@@ -25,7 +25,7 @@
 ## Файл-шаблоны
 Частоиспользуемые файл-шаблоны:
 
-    front-page.php - файл-шаблон главной страницы сайта без цикла, перекрывает home.php
+    front-page.php - файл-шаблон главной страницы сайта без цикла, отдельная странциа, перекрывает home.php
     single.php - файл-шаблон отвечающий за отображение страниц типа post (статья, новость и т.п.)
     page.php   - файл-шаблон отвечающий за отображение страниц типа page (страница 'о компании', 'контакты', 'наши услуги' и т.п.)
     archive.php - файл-шаблон выводящий список постов в категории, теге и т.п.
@@ -79,7 +79,43 @@
 - `languages`      - папка с языковыми файлами
 - `template-parts` - папка с файлами содаржащие куски PHP-кода (см. файл `template-parts.md`)
 
+## Пользовательские шаблоны
+Одиночные страницы:
+
+    index.php
+    singular.php
+
+    single.php
+    single-{id}.php
+    single-{slug}.php
+
+    page.php
+    page-{id}.php
+    page-{slug}.php
+
+Архивные страницы:
+
+    index.php
+    archive.php
+
+    category.php
+    category-{id}.php
+    category-{slug}.php
+
+    tag.php
+    tag-{id}.php
+    tag-{slug}.php
+
+- `get_queried_object()` - устанавливает и получает текущий объект запроса (полная информация о посте, метках, рубриках и т.д.).
+
+## Шаблон страницы через админку
+https://wp-kama.ru/id_5177/3-sposoba-sozdat-shablon-stranitsyi.html
+https://wp-kama.ru/id_8577/shablony-stranitsy-dlya-tipov-zapisej-v-wp-4-7.html
+
+Для постов, страниц и пользовательских записей, при их создании можно подключать шаблоны через админку. Это удобно например если у вас у более чем одной записи есть одинаковый шаблон, вместо того чтобы создавать шаблоны для каждой отдельной записи по их id или слагу.
+
+В корне сайта можно создать папку `templates`.
+
 ## Ссылки
 - https://wp-kama.ru/id_7654/ierarhiya-fajlov-temy-shablona.html
 - https://developer.wordpress.org/themes/basics/template-hierarchy/
-- which template - плагин показывающий какой шаблон сейчас используется
