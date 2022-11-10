@@ -9,7 +9,7 @@ http://wp-kama.ru/function/add_theme_support
     add_theme_support( 'custom-logo' );          // изменение логотипа через админку
     add_theme_support( 'custom-header' );        // изменение изображения в шапке сайта из админки
     add_theme_support( 'automatic-feed-links' ); // ссылки на RSS-фиды постов и комментариев
-    add_theme_support( 'html5' );                // поддержка вордпрессом html5
+    add_theme_support( 'html5' );                // внедрение тегой html5 в код WordPress по-умолчанию, например в поисковую строку
     add_theme_support( 'title-tag' );            // поддержка title, нужно удалить данный тег в header
     add_theme_support( 'widgets' );              // поддержка виджетов, создается автоматически при использовании register_sidebar()
 

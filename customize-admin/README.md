@@ -1,5 +1,5 @@
 # Опции админки
-https://wp-kama.ru/function-cat/admin-panel - функции админ панели
+https://wp-kama.ru/function-cat/admin-panel - функции админ панели  
 https://wp-kama.ru/id_3773/api-optsiy-nastroek.html - API настроек опций
 
 Опции (настройки) административной части сайта, создание страниц в админки полей, опций и т.д.
