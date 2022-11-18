@@ -159,7 +159,8 @@ jQuery уже есть в WordPress, подключать его не нужно
 Если в нашей верстке есть разный скрипты которые используют разные версии библиотек jQuery, то их нужно поочередно отключать и подключать через `wp_deregister_script()` и `wp_register_script()` пример:
 
     wp_deregister_script( 'jquery' );
-    wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+    // wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+    wp_register_script( 'jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', array(), false, true );
     wp_enqueue_script( 'jquery' );
 
 Тут подробнее: https://wp-kama.ru/id_4579/podklyuchenie-jquery-c-cdn-google-s-dinamicheskim-opredeleniem-versii-jquery.html

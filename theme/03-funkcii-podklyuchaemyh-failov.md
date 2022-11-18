@@ -109,3 +109,38 @@
     <?php wp_footer(); ?>
     </body>
     </html>
+
+Другая верстка:
+
+    <!DOCTYPE html>
+    <html <?php language_attributes(); ?>>
+    <head>
+      <meta charset="<?php bloginfo('charset'); ?>" />
+      <title><?php wp_title ('|', true, 'right'); bloginfo('name'); ?></title>
+      <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
+      <?php wp_head(); ?>
+    </head>
+    <body <?php body_class() ?> >
+    <?php wp_body_open(); ?>
+
+    <div class="container">
+      <header class="section section--header">
+        <h1 class="title-site"><?php bloginfo('name'); ?></h1>
+        <p><?php bloginfo('description'); ?></p>
+      </header>
+
+      <main>
+        Контент
+      </main>
+
+      <footer class="section section--footer">
+        footer
+      </footer>
+    </div>
+
+    <?php wp_footer(); ?>
+    </body>
+    </html>
+
+## Разное
+- мета тег фавиконки не ставить, он устанавливается из кастомайзера
