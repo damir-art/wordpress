@@ -1,10 +1,10 @@
 # Дочерняя тема в WordPress
 
     /*
-        Theme Name: Twenty Twenty-One Child
-        Template: twentytwentyone
+      Theme Name: Twenty Twenty-Three Child
+      Template: twentytwentythree
     */
-    @import url("../twentytwentyone/style.css");
+    @import url("../twentytwentythree/style.css");
 
 Вместо `@import url("../twentytwentyone/style.css");` в файле `functions.php` можно разместить код:
 

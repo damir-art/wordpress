@@ -23,6 +23,7 @@ https://developer.wordpress.org/resource/dashicons/
           'public'        => true, // false - технический не публичный post type
           'has_archive'   => true, // будет ли доступна страница архивов у post type
           // 'rewrite'    => array('slug' => 'products'),    // свое ЧПУ для post type
+          // 'menu_icon'   => 'dashicons-products', // иконка https://developer.wordpress.org/resource/dashicons/
           // 'taxonomies' => ['am_product_brand', 'am_product_category'] // какие таксономии привязаны к post type, не нужно делать если есть привязка в register_taxonomy
           // 'show_in_rest' => true // включение гутенберга для поста
         )
