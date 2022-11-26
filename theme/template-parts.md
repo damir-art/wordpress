@@ -11,3 +11,10 @@ echo get_post_format() - выведет формат поста (стандар�
   - content-page.php
   - content-search.php
   - content.php
+
+Подключение файла:
+
+    /**
+    * Функции создания пунктов меню в панели администратора
+    */
+    require_once get_template_directory() . '/inc/admin-functions.php';

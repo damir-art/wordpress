@@ -25,7 +25,7 @@
             wp_enqueue_script( 'comment-reply' );
         }
     }
-    // Хук к которому цепляем cars_enqueue_scripts()
+    // Хук к которому цепляем legioner_enqueue_scripts()
     add_action( 'wp_enqueue_scripts', 'legioner_enqueue_scripts');
 
 - cars_enqueue_scripts() - функция выводится внутри `wp_head()` или `wp_footer()`

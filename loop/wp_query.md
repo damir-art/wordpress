@@ -34,6 +34,15 @@
 
 Переменная `$query` содержит объект с результатами запроса.
 
+Получаем массив посто принадлежащих типу поста `films_films`:
+
+    $query = new WP_Query(
+      array(
+        'post_type' => array('films_films'),
+      )
+    );
+    films_debug($query->posts);
+
 ## Выводим посты в цикле
 `have_posts()` проверяет есть ли посты, `the_post()` позволяет использовать стандартные функции цикла WordPress.
 
@@ -49,6 +58,45 @@
       // the_title();
       echo $post->post_title;
     }
+
+Альтернативный синтаксис:
+
+    <?php foreach ($query->posts as $post): ?>
+    <?php echo $post->post_title; ?>
+    <?php endforeach; ?>
+
+Альтернативный синтаксис `while` (рекомендуется):
+
+    <?php while ($query->have_posts()): $query->the_post(); ?>
+    <?php the_title(); ?>
+    <?php endwhile; ?>
+
+Вывод таксономий пользовательского поста:
+
+    <?php
+      $cur_terms = get_the_terms( $post->ID, 'films_genre' );
+      if( is_array( $cur_terms ) ) {
+        foreach( $cur_terms as $cur_term ) {
+          echo '<a href="'. get_term_link( $cur_term->term_id, $cur_term->taxonomy ) .'">'. $cur_term->name .'</a>'. '/';
+        }
+      }
+    ?>
+
+Вывод таксономий пользовательского поста, со слешем между таксономиями, при этом после последней таксономии слеша нет:
+
+    <?php
+      $cur_terms = get_the_terms( $post->ID, 'films_genre' );
+      if( is_array( $cur_terms ) ) {
+        $count = count($cur_terms);
+        $i = 0;
+        foreach( $cur_terms as $cur_term ) {
+          $i++;
+          $slash = '/';
+          if($i == $count) $slash = '';
+          echo '<a href="'. get_term_link( $cur_term->term_id, $cur_term->taxonomy ) .'">'. $cur_term->name .'</a>'. $slash;
+        }
+      }
+    ?>
 
 ## Категории (рубрики)
 - `cat` (число, строка, массив) - ID категории, можно указать несколько через запятую (в строке или массиве), если перед id поставить минус то она будет исключена из выборки вместе с дочерними категориями, чтобы дочерние не исключать используйте category__not_in

@@ -66,4 +66,10 @@
       echo '</pre>';
     }
 
+или:
+
+    function legioner_debug($data) {
+      echo '<pre>' . print_r($data, 1) . '</pre>';
+    }
+
 - `which template` - плагин показывающий какой шаблон сейчас используется
