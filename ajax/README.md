@@ -1,5 +1,6 @@
 # AJAX в WordPress
 https://wp-kama.ru/id_2018/ajax-v-wordpress.html  
+Из-за WP REST API, AJAX в WordPress становится менее актуальным.
 
 С AJAX в WordPress работают в двух режимах:
 - через админку (авторизованные пользователи), используя хук `wp_ajax_(action)`
