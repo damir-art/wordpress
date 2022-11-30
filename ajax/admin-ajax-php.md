@@ -172,6 +172,123 @@ JS: custom.js
     );
 
 ## Безопасность
+Не нужно проверять AJAX-запрос, если он потенциально не опасен, например если запрос получает данные (записи, комментарии), в таких случаях мы указываем название экшена, принимаем данные и вставляем в указанное место страницы, можем также передать дополнительные данные для запроса. Но когда запрос удаляет, обновляет или возвращает приватные данные, то его нужно защитить.
+
+С безопасностью AJAX-запросов в WordPress, работают такие функции как:
+- wp_create_nonce() - создание nonce-кода
+- wp_verify_nonce()
+- check_ajax_referer()
+- current_user_can() - проверка прав доступа
+
+`nonce` - nonce-код, секретный ключ, уникальное значение для каждого пользователя, десятизначный уникальный код из букв, цифр, генерируется на основе экшен, кук, ID пользователя, на 24 часа.
+
+Алгоритм работы с nonce-кодом:
+- создаём nonce-код на странице (админке или паблике)
+- при AJAX-запросе, отсылаем nonce-код с данными
+- при обработке запроса, снова генерируем nonce-код
+- сравниваем ключи
+
+Для примера создадим плагин: `/wp-content/plugins/ajax-security/ajax-security.php`
+
+    <?php
+    /**
+    * Plugin Name: Тест Ajax безопасность
+    */
+
+    function legioner_ajax_security() {
+      // проверяем пришел ли nonce код
+      if( empty( $_POST['nonce'] ) ) {
+        wp_die( '0' );
+      }
+
+      /*
+        // Проверка nonce кода - первый вариант (обычно используется при перезагрузке страницы)
+        $nonce_outside = $_POST['nonce'];
+        $nonce_inside = wp_create_nonce('nonce-security');
+
+        $text = "nonce_outside: $nonce_outside, nonce_inside: $nonce_inside";
+
+        if( $nonce_outside === $nonce_inside ) {
+          wp_die( $text );
+        } else {
+          wp_die( $text, '', 403 ); // 403 - указываем с какой ошибкой завершить выполнение скрипта, номер ошибки не важен, главное благодаря ей срабатывает метод jqXHR.fail()
+        }
+      */
+
+      /*
+        // Проверка nonce кода - второй вариант (обычно используется при перезагрузке страницы)
+        // 1 - если nonce код создан в промежутке 0-12 часов (true)
+        // 2 - если nonce код создан в промежутке 12-24 часа (true)
+        if( wp_verify_nonce( $_POST['nonce'], 'nonce-security' ) ) {
+          wp_die( 'Да');
+        } else {
+          wp_die( 'Нет', '', 403 ); // 403 - указываем с какой ошибкой завершить выполнение скрипта, номер ошибки не важен, главное благодаря ей срабатывает метод jqXHR.fail()
+        }
+      */
+
+      /*
+        // Проверка nonce кода - третий вариант (обычно используется при AJAX-запросах без перезагрузки страницы)
+        // true (третий параметр) - функция прервет выполнение, при несовпадении nonce кода, выведет -1 и ошибку 403
+        // false (третий параметр) - функция вернет true или false
+        // check_ajax_referer( 'nonce-security', 'nonce', true );
+        // При true (третий параметр) можно писать в одну строку
+        // При false (третий параметр) используйте условную конструкцию
+        if (check_ajax_referer( 'nonce-security', 'nonce', false )) {
+          wp_die( 'Да');
+        } else {
+          wp_die( 'Нет', '', 403 ); // 403 - указываем с какой ошибкой завершить выполнение скрипта, номер ошибки не важен, главное благодаря ей срабатывает метод jqXHR.fail()
+        }
+      */
+
+      // Проверка nonce кода и прав доступа - четвертый вариант
+      $check_ajax_referer = check_ajax_referer( 'nonce-security', 'nonce', false );
+      $current_user_can = current_user_can( 'edit_others_pages' );
+      if ($check_ajax_referer && $current_user_can) {
+        wp_die( 'Да');
+      } else {
+        wp_die( 'Нет', '', 403 ); // 403 - указываем с какой ошибкой завершить выполнение скрипта, номер ошибки не важен, главное благодаря ей срабатывает метод jqXHR.fail()
+      }
+    }
+    add_action( 'wp_ajax_security', 'legioner_ajax_security' );
+    add_action( 'wp_ajax_nopriv_security', 'legioner_ajax_security' );
+
+    function wp_enqueue_scripts_security() {
+      wp_enqueue_script( 'custom-security', plugins_url( 'custom.js', __FILE__ ), array('jquery') );
+      wp_localize_script( 'custom-security', 'securityObject',
+        array(
+          'url' => admin_url('admin-ajax.php'),
+          'nonce' => wp_create_nonce('nonce-security'),
+        )
+      );
+    }
+    add_action( 'wp_enqueue_scripts', 'wp_enqueue_scripts_security' );
+
+JavaScript `custom.js`:
+
+    // Как только страница сайта будет загружена, сразу будет послан AJAX-запрос
+    // Начиная с jQuery 1.5 методы .ajax(), .post(), .get(), возвращают объект jqXHR, который реализует интерфейс deferred, что позволяет задавать дополнительные обработчики выполнения
+    // Методы deferred (дополнительные обработчики выполнения) : done(), fail(), then()
+    // В jqXHR реализованы обработчики (не рекомендуется использовать) .success(), .error(), .complete()
+    var jqXHR = jQuery.post(
+      securityObject.url,
+      {
+        action: 'security',
+        nonce: securityObject.nonce,
+      }
+    );
+
+    // Обработка успешного выполнения запроса
+    jqXHR.done(function(responce) {
+      alert('Успешный запрос: ' + responce);
+    })
+
+    // Обработка запроса с ошибкой
+    jqXHR.fail(function(responce) {
+      alert('Запрос с ошибкой: ' + responce.responseText);
+    })
+
+`nonce-код` создаётся в HTML-коде и если у вас установен плагин страничного кеширования, то страница с этим кодом может попасть в кеш и получится ситуация, когда реальный nonce код по истечению времени изменился, а на сервере с фронтенда посылается его все еще старая версия, пока кеширующий плагин не обновит кеш страницы. Один из выходов, добавить подобные старницы в исключения плагина. Страницы админки не кешируются.
+
 ## Пример: подгрузка постов
 ## Пример: виджет
 
