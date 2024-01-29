@@ -15,7 +15,7 @@
       <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> &raquo; Лента" href="<?php bloginfo('rss2_url'); ?>" />
       <?php wp_head(); ?>
     </head>
-    <body <?php body_class() ?> >
+    <body <?php body_class(); ?> >
     <?php wp_body_open(); ?>
 
     <section class="section section--header">
@@ -37,12 +37,15 @@
 - `echo home_url();` - используем вместо bloginfo() с параметрами url, home, siteurl, wpurl
 - `echo get_template_directory_uri();` - выводит путь к теме
 - `body_class();` - добавление классов WordPress в тег body
+- `wp_body_open();` - хук для вставки чего-либо в это место
+
+Также смотри `bloginfo.md`.
 
 Добавляем свой CSS-класс для внутренних страниц сайта:
 
     $body_class = '';
     if ( !is_front_page() ) {
-        $body_class = 'inner';
+      $body_class = 'inner';
     }
 
     <body class=" <?php echo $body_class ?> ">

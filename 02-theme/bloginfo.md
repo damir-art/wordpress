@@ -1,6 +1,6 @@
 # bloginfo()
 https://wp-kama.ru/function/bloginfo  
-Вывод информацию о сайте. Является тегом шаблона и может быть исаользован в любом месте шаблона.
+Вывод информации о сайте. Является тегом шаблона и может быть исаользован в любом месте шаблона.
 
 Данные могут храниться в админке, например:
 - `Настройки > Общие`
@@ -16,7 +16,7 @@ https://wp-kama.ru/function/bloginfo
   - `echo get_template_directory_uri()` - тоже самое
 - `bloginfo('stylesheet_url')` - URL путь к style.css, https://site.name/wp-content/themes/theme-name/style.css
 - `bloginfo('language')` - локаль сайта, ru-RU
-  - `language_attributes()` - почти тоже самое lang="ru-RU"
+- `language_attributes()` - html lang="ru-RU"
 - `bloginfo('html_type')` - text/html или другой тип (Content-Type)
 - `echo get_template_directory()` - файловый путь к теме D:\server\domains\site.name/wp-content/themes/theme_name
 - `bloginfo('admin_email')` - email администратора

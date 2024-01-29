@@ -138,3 +138,20 @@ WordPress это набор файлов, которые управляют ко
     echo '<pre>';
     print_r(wp_get_theme());
     echo '</pre>';
+
+## functions.php
+Пример начального кода файла functions.php:
+
+    <?php
+    add_action( 'after_setup_theme', function() {
+
+      // Создание метатега <title> через хук
+      add_theme_support( 'title-tag' );
+
+      // Поддержка миниатюр
+      add_theme_support('post-thumbnails');
+
+      // включаем меню в админке
+      // add_theme_support( 'menus' );
+
+    });
