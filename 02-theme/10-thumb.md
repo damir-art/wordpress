@@ -23,7 +23,9 @@
 ## the_post_thumbnail()
 Пример, выведем миниатюру с минимальными размерами:
 
-    the_post_thumbnail('thumbnail');
+    <?php
+      the_post_thumbnail('thumbnail');
+    ?>
 
 Пример с параметрами, выведем миниатюру среднюю и зададим ей класс:
 
@@ -60,7 +62,7 @@ crop:
     if(has_post_thumbnail()) {
       the_post_thumbnail( 'thumbnail' );
     } else {
-      echo '<img src="' . get_template_directory_uri() . '/img/thumb-150x150.png" />';
+      echo '<img src="' . get_template_directory_uri() . '/img/thumb-150x150.png" width="150" height="150" />';
     }
 
 Пример, если код выше нужно разместить в нескольких файлах шаблонах, то его можно поместить в функцию, чтобы не повторяться (пишем в functions.php):

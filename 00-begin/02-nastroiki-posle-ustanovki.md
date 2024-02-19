@@ -127,7 +127,7 @@
     Disallow: *utm*=                # Ссылки с utm-метками
     Disallow: *openstat=            # Ссылки с метками openstat
 
-    # Одина или несколько ссылок на карту сайта (файл Sitemap). Это независимая
+    # Одна или несколько ссылок на карту сайта (файл Sitemap). Это независимая
     # директива и дублировать её для каждого User-agent не нужно. Так например
     # Google XML Sitemap создает 2 карты сайта:
     Sitemap: http://example.com/sitemap.xml

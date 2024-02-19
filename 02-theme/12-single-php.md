@@ -15,6 +15,26 @@
     previous_post_link(параметры) - ссылка на предыдущий пост
     next_post_link(параметры) - ссылка на следующий пост
 
+Вёрстка пагинации:
+
+    /* Previous Next */
+    .previous-next {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    <div class="previous-next">
+      <div>
+        <?php previous_post_link('Предыдущая: %link'); ?>
+      </div>
+      <div>
+        <?php next_post_link('Следующая: %link'); ?>
+      </div>
+    </div>
+
 ## Разное
 По идее (хотя и не рекомендуется), в постах (single.php) и страницах (page.php) проверку if и цикл while можно убрать и оставить:
 

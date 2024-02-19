@@ -34,6 +34,7 @@ index.php содержит основной цикл, который вывод�
 Количество постов, выводимых файлом index.php, зависит от настроек админки WordPress: Админка > Настройки > Чтение (по-стандарту это 10 постов), после которых идёт постраничная навигация.
 
 ## Схема цикла WordPress
+Этот код не подходит, некуда вставлять постраничную навигацию (нормальный цикл с вёрсткой см в конце страницы):
 
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
       <!-- Цикл WordPress -->
@@ -43,10 +44,22 @@ index.php содержит основной цикл, который вывод�
       <p>Записей нет.</p>
     <?php endif; ?>
 
+Нормальный цикл:
+
+    <?php if(have_posts()): ?>
+
+      <?php while(have_posts()): the_post(); ?>
+        /* Вывод всех записей */
+      <?php endwhile; ?>
+
+      <?php else: ?>
+      <p>Записей нет.</p>
+    <?php endif; ?>
+
 Расположение функций постраничной навигации см на странице `08-pagination.md`
 
-- have_posts() - возвращает true или false в зависимости от того существуют записи или нет.
-- while ( have_posts() ) - выводим записи пока они есть
+- have_posts() - возвращает true или false в зависимости от того существуют записи или нет,
+- while ( have_posts() ) - выводим записи пока они есть,
 - the_post() - объект текущей записи, устнавливает глобальную переменную $post, становятся доступны теги типа the_title() и т.п.
 
 ## Функции-шаблона используемые внутри цикла
@@ -118,3 +131,81 @@ Eсли вы не хотите использовать цитаты и вам �
 ## Разное
 - https://wp-kama.ru/id_119/chto-takoe-tsikl-the-loop-v-wordpress.html - цикл WordPress
 - https://wp-kama.ru/id_767/3-sposoba-postroeniya-tsiklov-v-wordpress.html - три способа создания цикла в WordPress
+
+## Нормальный цикл с вёрсткой
+Нормальный цикл с вёрсткой, файл `index.php`:
+
+CSS:
+
+    /* Loop */
+    .loop {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .loop__item {
+      display: flex;
+      gap: 16px;
+      background-color: #bdc3c7;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .loop__img {
+      display: flex;
+    }
+    .loop__img img {
+      border-radius: 8px;
+    }
+    .loop__title a {
+      color: #34495e;
+      text-decoration: none;
+    }
+    .loop__title h3 {
+      margin: 0;
+      color: #34495e;
+      font-size: 28px;
+    }
+    .loop__excerpt p {
+      margin: 0;
+      margin-top: 8px;
+    }
+
+HTML + PHP:
+
+    <?php get_header(); ?>
+
+    <section class="section section--index">
+      <div class="section__container">
+
+        <?php if ( have_posts() ): ?>
+          <div class="loop">
+            <?php while ( have_posts() ) : the_post(); ?>
+              <div class="loop__item">
+                <div class="loop__img">
+                  <img src="" alt="" width="150" height="150" />
+                </div>
+                <div class="loop__wrap">
+                  <div class="loop__title">
+                    <a href="<?php the_permalink(); ?>">
+                      <h3><?php the_title(); ?></h3>
+                    </a>
+                  </div>
+                  <div class="loop__excerpt">
+                    <?php the_excerpt(); ?>
+                  </div>
+                </div>
+              </div> <!-- loop__item -->
+            <?php endwhile; ?>
+          </div> <!-- loop -->
+        <? else : ?>
+          <div class="loop">
+            <div class="loop__item">
+              <p>Записей нет.</p>
+            </div> <!-- loop__item -->
+          </div> <!-- loop -->
+        <?php endif; ?>
+
+      </div> <!-- section__container -->
+    </section> <!-- section_index -->
+
+    <?php get_footer(); ?>

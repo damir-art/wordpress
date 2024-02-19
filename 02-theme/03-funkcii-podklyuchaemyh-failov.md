@@ -1,6 +1,8 @@
 # Функции подключаемых файлов
 После создания подключаемых файлов header.php, footer.php, туда нужно внедрить различные функции, рассмотрим их.
 
+Теги шаблонов: https://wp-kama.ru/functions/template-tags
+
 ## header.php
 Схема header.php:
 
@@ -26,6 +28,13 @@
 Где:
 
 - `language_attributes();` - устанавливает язык в зависимости от настроек WP
+- `wp_enqueue_script("jquery");` - подключаем jQuery, данную строку располагаем перед `wp_head();`
+  - при входе в админку, jQuery поключается автоматически, при выходе отключается
+- `echo home_url();` - используем вместо bloginfo() с параметрами url, home, siteurl, wpurl
+- `echo get_template_directory_uri();` - выводит путь к теме
+- `body_class();` - добавление классов WordPress в тег body
+- `post_class()` - выводит классы поста
+- `wp_body_open();` - хук для вставки чего-либо в это место
 - `bloginfo('charset');` - определение кодировки сайта
 - `bloginfo('name');` - вывод имени блога
 - `bloginfo('stylesheet_url');` - подключение style.css темы или `<?php echo get_stylesheet_uri(); ?>`
@@ -33,11 +42,6 @@
 - `echo get_option('home');` - вывод адреса блога
 - `bloginfo('template_url');` - путь к теме
 - `echo get_option('home');` - вывод адреса главной страницы сайта
-- `wp_enqueue_script("jquery");` - подключаем jQuery, данную строку располагаем перед `wp_head();`
-- `echo home_url();` - используем вместо bloginfo() с параметрами url, home, siteurl, wpurl
-- `echo get_template_directory_uri();` - выводит путь к теме
-- `body_class();` - добавление классов WordPress в тег body
-- `wp_body_open();` - хук для вставки чего-либо в это место
 
 Также смотри `bloginfo.md`.
 
@@ -52,7 +56,7 @@
 
 Выяснить, что такое: `http://gmpg.org/xfn/11` и `bloginfo('pingback_url');`
 
-`wp_head()` - вызывает `do_action( 'wp_head' `, на этот хук, WordPress подписывает вывод тегов которые нужно вставить между тегами `head`
+`wp_head()` - вызывает `do_action( 'wp_head' `, на этот хук, WordPress подписывает вывод тегов которые нужно вставить между тегами `head`.
 
 ## footer.php
 Перед закрывающим тегом `body` удаляем все скрипты и вставляем `<?php wp_footer() ?>`
@@ -119,6 +123,7 @@
     <html <?php language_attributes(); ?>>
     <head>
       <meta charset="<?php bloginfo('charset'); ?>" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title><?php wp_title ('|', true, 'right'); bloginfo('name'); ?></title>
       <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
       <?php wp_head(); ?>
