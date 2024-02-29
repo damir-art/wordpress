@@ -152,4 +152,14 @@ WordPress это набор файлов, которые управляют ко
 
       // Включаем меню в админке
       // add_theme_support( 'menus' );
+
+      add_theme_support('html5', array(
+        'comment-list',
+        'comment-form',
+        'search-form',
+        'gallery',
+        'caption',
+        'script',
+        'style',
+      ));
     });

@@ -8,9 +8,7 @@
 Схема файл-шаблона index.php:
 
     <?php get_header(); ?>
-
-        Цикл
-
+      Цикл
     <?php get_footer(); ?>
 
 ## Подключаем изображения
@@ -20,7 +18,7 @@
 Можно создать функцию и разместить её в `function.php`:
 
     function _po_dist_path( $path ) {
-        return get_template_directory_uri() . '/dist/' . $path;
+      return get_template_directory_uri() . '/dist/' . $path;
     }
 
 Код для шаблона:

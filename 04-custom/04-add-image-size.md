@@ -21,15 +21,15 @@ thumb (thumbnail), medium, large - берутся из `Настройки > М�
 В файл-шаблон index.php в цикл, добавляем:
 
     if ( has_post_thumbnail() ) {
-    	the_post_thumbnail();
+      the_post_thumbnail();
     }
 
     или
 
     <?php if(has_post_thumbnail()): ?>
-        <?php the_post_thumbnail(); ?>
+      <?php the_post_thumbnail(); ?>
     <?php else: ?>
-        <img src="<?php bloginfo('template_url'); ?>/img/thumb-default.jpg" />
+      <img src="<?php bloginfo('template_url'); ?>/img/thumb-default.jpg" />
     <?php endif; ?>
 
 Данный код проверяет и выводит миниатюру поста. Если миниатюры нет, то выводит миниатюру по-умолчанию.
@@ -65,17 +65,17 @@ thumb, thumbnail, medium, large, post-thumbnail - данные имена зап
 В functions.php
 
     if ( function_exists( 'add_theme_support' ) ) {
-        add_theme_support( 'post-thumbnails' );
-            set_post_thumbnail_size( 300, 300 ); // размер миниатюры поста по умолчанию
+      add_theme_support( 'post-thumbnails' );
+        set_post_thumbnail_size( 300, 300 ); // размер миниатюры поста по умолчанию
     }
 
     if ( function_exists( 'add_image_size' ) ) {
-        add_image_size( 'category-thumb', 300, 9999 ); // 300 в ширину и без ограничения в высоту
-        add_image_size( 'homepage-thumb', 220, 180, true ); // Кадрирование изображения
+      add_image_size( 'category-thumb', 300, 9999 ); // 300 в ширину и без ограничения в высоту
+      add_image_size( 'homepage-thumb', 220, 180, true ); // Кадрирование изображения
     }
 
 В index.php
 
     if ( has_post_thumbnail() ) {
-        the_post_thumbnail( 'category-thumb' );
+      the_post_thumbnail( 'category-thumb' );
     }

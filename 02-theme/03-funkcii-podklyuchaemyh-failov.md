@@ -25,6 +25,8 @@
       <p><?php bloginfo('description'); ?></p>
     </section>
 
+    <img src="<?php echo get_template_directory_uri(); ?>/img/picture.png" width="250" height="250" alt="" />
+
 Где:
 
 - `language_attributes();` - устанавливает язык в зависимости от настроек WP
@@ -151,4 +153,4 @@
     </html>
 
 ## Разное
-- мета тег фавиконки не ставить, он устанавливается из кастомайзера
+- мета-тег фавиконки не ставить, он устанавливается из кастомайзера

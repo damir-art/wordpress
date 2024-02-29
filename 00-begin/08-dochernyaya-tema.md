@@ -67,28 +67,28 @@
 Добавляем строки между тегами header, например фавиконку:
 
     function favicon_link() {
-        echo '<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />' . "\n";
+      echo '<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />' . "\n";
     }
     add_action('wp_head', 'favicon_link');
 
 Меняем пагинацию:
 
     function twentytwelve_content_nav( $html_id ) {
-        if ( function_exists( 'wp_pagenavi' ) )
-            wp_pagenavi();
+      if ( function_exists( 'wp_pagenavi' ) )
+        wp_pagenavi();
     }
 
 ## Расширенный style.css
 У файла style.css есть дополнительные свойства, все они не обязательны. Более расширенная версия файла `style.css`:
 
     /*
-        Theme Name: Twenty Twelve Child      // имя темы обяз
-        Theme URI: http://siteName           // сайт или страница посвященная вашей теме не обяз
-        Description: Краткое описание темы   // не обяз
-        Author: имя автора                   // не обяз
-        Author URI: ссылка на профиль автора // не обяз
-        Template: twentytwelve               // обяз
-        Version: 0.1                         // версия темы не обяз
+      Theme Name: Twenty Twelve Child      // имя темы обяз
+      Theme URI: http://siteName           // сайт или страница посвященная вашей теме не обяз
+      Description: Краткое описание темы   // не обяз
+      Author: имя автора                   // не обяз
+      Author URI: ссылка на профиль автора // не обяз
+      Template: twentytwelve               // обяз
+      Version: 0.1                         // версия темы не обяз
     */
 
 `не обяз` - не обязательно, если не размещаете тему в репозитории WordPress
