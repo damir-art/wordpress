@@ -143,6 +143,9 @@ WordPress это набор файлов, которые управляют ко
 Пример начального кода файла functions.php:
 
     <?php
+    /**
+    * Начальные настройки темы 
+    */
     add_action( 'after_setup_theme', function() {
       // Создание метатега <title> через хук
       // add_theme_support( 'title-tag' );

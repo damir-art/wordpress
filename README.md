@@ -62,16 +62,16 @@
     /**
     * Показать массив, объект
     */
-    function themeName_debug($elem) {
+    function themeName_debug( $elem ) {
       echo '<pre>';
-      print_r($elem);
+      print_r( $elem );
       echo '</pre>';
     }
 
 или:
 
-    function legioner_debug($data) {
-      echo '<pre>' . print_r($data, 1) . '</pre>';
+    function legioner_debug( $data ) {
+      echo '<pre>' . print_r( $data, 1 ) . '</pre>';
     }
 
 Отмена сжатия изображений при загрузке:
