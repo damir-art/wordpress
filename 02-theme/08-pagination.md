@@ -64,14 +64,70 @@
 
 CSS:
 
+    /* Loop */
+    .loop {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .loop__item {
+      display: flex;
+      gap: 16px;
+      background-color: rgba(255, 255, 255, 0.6);
+      padding: 16px;
+    }
+    .loop__img {
+      display: flex;
+    }
+    .loop__img img {
+      border-radius: 8px;
+    }
+    .loop__wrap {
+      display: flex;
+      flex-direction: column;
+    }
+    .loop__title a {
+      color: #34495e;
+      text-decoration: none;
+    }
+    .loop__title h3 {
+      margin: 0;
+      color: #34495e;
+      font-size: 28px;
+    }
+    .loop__excerpt p {
+      margin: 0;
+      margin-top: 8px;
+    }
+    .loop__category {
+      margin-top: auto;
+    }
+    .loop__category a {
+      color: #3498db;
+      font-size: 14px;
+    }
+
     /* Pagination */
     .pagination .nav-links {
       margin-top: 16px;
       display: flex;
-      gap: 4px;
+      gap: 8px;
     }
     .pagination .page-numbers {
       color: #34495e;
+    }
+
+    .section--single .loop__item {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Previous Next */
+    .previous-next {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-top: 8px;
     }
 
 HTML + PHP:
@@ -81,38 +137,41 @@ HTML + PHP:
     <section class="section section--index">
       <div class="section__container">
 
-        <?php if ( have_posts() ): ?>
-          <div class="loop">
-            <?php while ( have_posts() ) : the_post(); ?>
-              <div class="loop__item">
-                <div class="loop__img">
-                  <img src="" alt="" width="150" height="150" />
-                </div>
-                <div class="loop__wrap">
-                  <div class="loop__title">
-                    <a href="<?php the_permalink(); ?>">
-                      <h3><?php the_title(); ?></h3>
-                    </a>
-                  </div>
-                  <div class="loop__excerpt">
-                    <?php the_excerpt(); ?>
-                  </div>
-                </div>
-              </div> <!-- loop__item -->
-            <?php endwhile; ?>
-          </div> <!-- loop -->
-          <div class="pagination">
-            <?php the_posts_pagination(); ?>
-          </div>
-        <? else : ?>
-          <div class="loop">
-            <div class="loop__item">
-              <p>Записей нет.</p>
-            </div> <!-- loop__item -->
-          </div> <!-- loop -->
-        <?php endif; ?>
+    <?php if ( have_posts() ): ?>
+      <div class="loop">
+        <?php while ( have_posts() ) : the_post(); ?>
+          <div class="loop__item">
+            <div class="loop__img">
+              <img src="" alt="" width="150" height="150" />
+            </div> <!-- loop__img -->
+            <div class="loop__wrap">
+              <div class="loop__title">
+                <a href="<?php the_permalink(); ?>">
+                  <h3><?php the_title(); ?></h3>
+                </a>
+              </div> <!-- loop__title -->
+              <div class="loop__excerpt">
+                <?php the_excerpt(); ?>
+              </div> <!-- loop__excerpt -->
+              <div class="loop__category">
+                <?php the_category(', '); ?>
+              </div> <!-- loop__category -->
+            </div> <!-- loop__wrap -->
+          </div> <!-- loop__item -->
+        <?php endwhile; ?>
+      </div> <!-- loop -->
+      <div class="pagination">
+        <?php the_posts_pagination(); ?>
+      </div>
+    <? else : ?>
+      <div class="loop">
+        <div class="loop__item">
+          <p>Записей нет.</p>
+        </div> <!-- loop__item -->
+      </div> <!-- loop -->
+    <?php endif; ?>
 
       </div> <!-- section__container -->
-    </section> <!-- section_index -->
+    </section> <!-- section--index -->
 
     <?php get_footer(); ?>

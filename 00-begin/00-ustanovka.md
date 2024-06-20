@@ -13,7 +13,7 @@
 - создаём папку `wp.loc` в папке `D:\OSPanel\domains\`
 - запускаем OpenServer *(зелёный ярлык OpenServer должен появиться на рабочем столе)*
 - в `OpenServer > Настройки > Модули` выставляем такие параметры:
-    - HTTP: `Apache_2.4-PHP_7.2-7.4` или `Apache_2.4-PHP_8.0-8.1` вести лог (да)
+    - HTTP: `Apache_2.4-PHP_7.2-7.4` или `Apache_2.4-PHP_8.0-8.1` вести лог (да) или `Nginx_1.23`
     - PHP: `PHP_7.4` или `PHP_8.1`
     - MySQL/MariaDB: `MySQL-5.6` или `MariaDB-10.4` вести лог (да)
 - качаем WordPress: https://ru.wordpress.org

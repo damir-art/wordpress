@@ -14,7 +14,7 @@ https://wp-kama.ru/function/register_sidebars
 - dynamic_sidebar() - выводит панель виджетов в шаблоне
 - id - не должен быть равен https://wordpress.stackexchange.com/questions/59973/what-is-allowed-as-an-id-argument-in-register-sidebar-args/59985#59985
 
-## Регистрация сайдара
+## Регистрация сайдара в function.php
 Код регистрации сайдбара с виджетами в functions.php:
 
     /**

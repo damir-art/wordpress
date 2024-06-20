@@ -51,7 +51,7 @@ index.php содержит основной цикл, который вывод�
     <?php if(have_posts()): ?>
 
       <?php while(have_posts()): the_post(); ?>
-        /* Вывод всех записей */
+        <p>Записи есть.</p>
       <?php endwhile; ?>
 
       <?php else: ?>
@@ -185,17 +185,20 @@ HTML + PHP:
               <div class="loop__item">
                 <div class="loop__img">
                   <img src="" alt="" width="150" height="150" />
-                </div>
+                </div> <!-- loop__img -->
                 <div class="loop__wrap">
                   <div class="loop__title">
                     <a href="<?php the_permalink(); ?>">
                       <h3><?php the_title(); ?></h3>
                     </a>
-                  </div>
+                  </div> <!-- loop__title -->
                   <div class="loop__excerpt">
                     <?php the_excerpt(); ?>
-                  </div>
-                </div>
+                  </div> <!-- loop__excerpt -->
+                  <div class="loop__category">
+                    <?php the_category(', '); ?>
+                  </div> <!-- loop__category -->
+                </div> <!-- loop__wrap -->
               </div> <!-- loop__item -->
             <?php endwhile; ?>
           </div> <!-- loop -->

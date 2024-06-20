@@ -108,21 +108,33 @@ HTML:
 
     <?php get_header(); ?>
 
-    <section class="section section--index">
+    <section class="section section--single">
       <div class="section__container">
 
       <?php if ( have_posts() ): ?>
         <div class="loop">
           <?php while ( have_posts() ) : the_post(); ?>
             <div class="loop__item">
+              <div class="loop__img">
+                <?php
+                  if(has_post_thumbnail()) {
+                    the_post_thumbnail( 'medium' );
+                  } else {
+                    echo '<img src="' . get_template_directory_uri() . '/img/thumb-600x450.png" width="600" height="450" />';
+                  }
+                ?>
+              </div> <!-- loop__img -->
               <div class="loop__wrap">
                 <div class="loop__title">
                   <h1><?php the_title(); ?></h1>
-                </div>
-                <div class="loop__excerpt">
+                </div> <!-- loop__title -->
+                <div class="loop__content">
                   <?php the_content(); ?>
-                </div>
-              </div>
+                </div> <!-- loop__content -->
+                <div class="loop__category">
+                  <?php the_category(', '); ?>
+                </div> <!-- loop__category -->
+              </div> <!-- loop__wrap -->
             </div> <!-- loop__item -->
           <?php endwhile; ?>
         </div> <!-- loop -->
@@ -133,7 +145,13 @@ HTML:
           <div>
             <?php next_post_link('Следующая: %link'); ?>
           </div>
-        </div>
+        </div> <!-- previous-next -->
+      <? else : ?>
+        <div class="loop">
+          <div class="loop__item">
+            <p>Записей нет.</p>
+          </div> <!-- loop__item -->
+        </div> <!-- loop -->
       <?php endif; ?>
 
       </div> <!-- section__container -->

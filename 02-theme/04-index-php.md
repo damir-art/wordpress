@@ -3,6 +3,8 @@
 
 Файл-шаблон index.php хранит в себе цикл (loop) и является главным файл-шаблоном для single.php, page.php, archive.php и других.
 
+Прежде чем создавать файл index.php, создайте файл `front-page.php` (см. `11-hierarchy-template.md`) и разместите код из index.php в нём.
+
 В index.php внедряются подключаемые файлы: header.php, footer.php между которыми располагают цикл.
 
 Схема файл-шаблона index.php:
