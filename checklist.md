@@ -4,6 +4,7 @@
 ## Файл шаблоны сайта
 Минимальное количество файл-шаблонов сайта:
 - style.css
+- front-page.php
 - index.php
 - header.php
 - footer.php
@@ -12,3 +13,7 @@
 - 404.php
 - archive.php
 - search.php
+
+## Сделать
+- проверить robots.txt
+- добавить вебмастер и метрику
