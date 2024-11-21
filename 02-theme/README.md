@@ -1,16 +1,74 @@
 # Создание темы WordPress
-Содержание раздела:
+
+Из каких файлов состоит шаблон:
 - style.css
-- подключаемые файлы (header.php, footer.php, sidebar.php)
-- функции подключаемых файлов
 - index.php
-- иерархия шаблонов
-- цикл (loop)
-- single.php
+- functions.php
+- header.php,
+- footer.php
 - page.php
 - 404.php
-- search.php
-- category.php
+- single.php
+- screenshot.png
+
+<?php bloginfo('template_url'); ?>/
+
+## Начальный functions.php
+- когда пишите свои функции, например в файле `functions.php` вставляйте перед её именем имя темы, например `function theme_foo() {}`, это необходимо во избежании конфликта имён функций
+- при разработке WordPress в инспекторе браузере во влкадке `Сеть`, отключайте кэш
+
+Первая функция в function.php, должна быть функция `themeName_debug()` форматированно выводящая объекты и массивы:
+
+    /**
+    * Показать массив, объект
+    */
+    function themeName_debug( $elem ) {
+      echo '<pre>';
+      print_r( $elem );
+      echo '</pre>';
+    }
+
+или:
+
+    function legioner_debug( $data ) {
+      echo '<pre>' . print_r( $data, 1 ) . '</pre>';
+    }
+
+Отмена сжатия изображений при загрузке:
+
+    /**
+    * Отменяем сжатие изображений
+    */
+    add_filter( 'jpeg_quality', function( $quality ) {
+      return 100;
+    });
+
+Начальные настройки темы:
+
+    <?php
+    /**
+    * Начальные настройки темы
+    */
+    add_action( 'after_setup_theme', function() {
+      // Создание метатега <title> через хук
+      // add_theme_support( 'title-tag' ); // появится когда подключите функции wp_head() и wp_footer()
+
+      // Поддержка миниатюр
+      // add_theme_support('post-thumbnails');
+
+      // Включаем меню в админке
+      // add_theme_support( 'menus' );
+
+      add_theme_support('html5', array(
+        'comment-list',
+        'comment-form',
+        'search-form',
+        'gallery',
+        'caption',
+        'script',
+        'style',
+      ));
+    });
 
 ## Из чего состоит WordPress
 WordPress это набор файлов, которые управляют контентом хранящимся в базе данных.
@@ -138,31 +196,3 @@ WordPress это набор файлов, которые управляют ко
     echo '<pre>';
     print_r(wp_get_theme());
     echo '</pre>';
-
-## functions.php
-Пример начального кода файла functions.php:
-
-    <?php
-    /**
-    * Начальные настройки темы 
-    */
-    add_action( 'after_setup_theme', function() {
-      // Создание метатега <title> через хук
-      // add_theme_support( 'title-tag' );
-
-      // Поддержка миниатюр
-      // add_theme_support('post-thumbnails');
-
-      // Включаем меню в админке
-      // add_theme_support( 'menus' );
-
-      add_theme_support('html5', array(
-        'comment-list',
-        'comment-form',
-        'search-form',
-        'gallery',
-        'caption',
-        'script',
-        'style',
-      ));
-    });

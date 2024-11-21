@@ -19,3 +19,17 @@
 Sitemap XML уже встроен:
 
     Sitemap: https://site.ru/wp-sitemap.xml
+
+## Плагины
+Плагины WordPress, которые сразу ставим:
+- Show Current Template
+- Cyr-To-Lat
+- Akismet Anti-Spam (активация)
+- Contact Form 7 (капча в гугл)
+- Duplicate Page (дублирование записей)
+- Slim SEO (лёгкий SEO плагин, к сожалению удаляет Sitemap XML Вордпресса)
+
+Разное:
+- `show current template` - (рекомендуется) плагин показывающий какой шаблон сейчас используется
+- `which template` - плагин показывающий какой шаблон сейчас используется
+- `which template file` - плагин показывающий какой шаблон сейчас используется

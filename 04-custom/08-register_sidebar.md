@@ -9,12 +9,12 @@ https://wp-kama.ru/function/register_sidebars
 - вывод сайдбара `dynamic_sidebar()`, в шаблоне `sidebar.php` или любом другом: header.php, footer.php и т.п.
 
 Рабочий процесс:
-- register_sidebar() - регистрирует сайдбар в function.php
+- register_sidebar() - регистрирует сайдбар в functions.php
 - register_sidebars() - регистрирует несколько сайдбаров сразу в function.php
 - dynamic_sidebar() - выводит панель виджетов в шаблоне
 - id - не должен быть равен https://wordpress.stackexchange.com/questions/59973/what-is-allowed-as-an-id-argument-in-register-sidebar-args/59985#59985
 
-## Регистрация сайдара в function.php
+## Регистрация сайдара в functions.php
 Код регистрации сайдбара с виджетами в functions.php:
 
     /**

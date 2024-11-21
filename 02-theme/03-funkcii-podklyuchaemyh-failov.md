@@ -3,6 +3,9 @@
 
 Теги шаблонов: https://wp-kama.ru/functions/template-tags
 
+    <?php body_class(); ?>
+    <?php wp_body_open(); ?>
+
 ## header.php
 Схема header.php:
 

@@ -26,6 +26,7 @@ HTML5:
     ));
 
 ## Пример
+
     <?php
       // Начальные настройки сайта
       add_action( 'after_setup_theme', 'site_setup' );
