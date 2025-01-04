@@ -1,15 +1,17 @@
 # Создание темы WordPress
 
 Из каких файлов состоит шаблон:
-- style.css
-- index.php
-- functions.php
-- header.php,
-- footer.php
-- page.php
 - 404.php
-- single.php
+- archive.php
+- footer.php
+- front-page.php
+- functions.php
+- header.php
+- index.php
+- page.php
 - screenshot.png
+- single.php
+- style.css
 
 <?php bloginfo('template_url'); ?>/
 
@@ -45,7 +47,6 @@
 
 Начальные настройки темы:
 
-    <?php
     /**
     * Начальные настройки темы
     */

@@ -8,6 +8,7 @@
 - Создание дочерней темы *(после выбора окончательной темы)*
 
 ## robots.txt
+Разместить в корень сайта, а не темы.  
 Код по-умолчанию:
 
     User-agent: *
@@ -28,6 +29,7 @@ Sitemap XML уже встроен:
 - Contact Form 7 (капча в гугл)
 - Duplicate Page (дублирование записей)
 - Slim SEO (лёгкий SEO плагин, к сожалению удаляет Sitemap XML Вордпресса)
+- Breadcrumb NavXT (установка http://mtekk.us/code/breadcrumb-navxt/#basic)
 
 Разное:
 - `show current template` - (рекомендуется) плагин показывающий какой шаблон сейчас используется

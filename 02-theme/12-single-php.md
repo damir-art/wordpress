@@ -35,6 +35,17 @@
       </div>
     </div>
 
+```html
+<div class="previous-next">
+  <div class="previous-next__item">
+    <?php previous_post_link('Предыдущая: %link'); ?>
+  </div> <!-- previous-next__item -->
+  <div class="previous-next__item">
+    <?php next_post_link('Следующая: %link'); ?>
+  </div> <!-- previous-next__item -->
+</div> <!-- previous-next -->
+```
+
 ## Разное
 По идее (хотя и не рекомендуется), в постах (single.php) и страницах (page.php) проверку if и цикл while можно убрать и оставить:
 
