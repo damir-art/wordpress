@@ -11,29 +11,26 @@
 
 Подробнее:
 
-    the_content(параметры) - вывод контента текущей записи
-    previous_post_link(параметры) - ссылка на предыдущий пост
-    next_post_link(параметры) - ссылка на следующий пост
+- the_content(параметры) - вывод контента текущей записи
+- previous_post_link(параметры) - ссылка на предыдущий пост
+- next_post_link(параметры) - ссылка на следующий пост
 
 Вёрстка пагинации:
 
-    /* Previous Next */
-    .previous-next {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 8px;
-    }
-
-    <div class="previous-next">
-      <div>
-        <?php previous_post_link('Предыдущая: %link'); ?>
-      </div>
-      <div>
-        <?php next_post_link('Следующая: %link'); ?>
-      </div>
-    </div>
+```css
+/* previous-next */
+.previous-next {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  border-top: 1px solid rgba(45, 52, 54, 0.5);
+  padding-top: 8px;
+  color: rgba(45, 52, 54, 0.5);
+}
+.previous-next a {
+  color: rgba(45, 52, 54, 0.5);
+}
+```
 
 ```html
 <div class="previous-next">

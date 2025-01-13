@@ -1,17 +1,34 @@
 # Пагинация
 Пагинация - постраничная навигация.
 
-Цикл с постраничной навигацией:
+Цикл с постраничной навигацией.
 
-    <?php if(have_posts()): ?>
-      <?php while(have_posts()): the_post(); ?>
-        <h2><?php the_title(); ?></h2>
-        <?php the_excerpt(); ?>
-      <?php endwhile; ?>
-      <?php the_posts_pagination(); ?>
-    <?php else: ?>
-      <p>Записей нет.</p>
-    <?php endif; ?>
+archive.php:
+
+```php
+<?php if(have_posts()): ?>
+  <?php while(have_posts()): the_post(); ?>
+    <h2><?php the_title(); ?></h2>
+    <?php the_excerpt(); ?>
+  <?php endwhile; ?>
+  <?php the_posts_pagination(); ?>
+<?php else: ?>
+  <p>Записей нет.</p>
+<?php endif; ?>
+```
+
+single.php:
+
+```html
+<div class="previous-next">
+  <div class="previous-next__item">
+    <?php previous_post_link('Предыдущая: %link'); ?>
+  </div> <!-- previous-next__item -->
+  <div class="previous-next__item">
+    <?php next_post_link('Следующая: %link'); ?>
+  </div> <!-- previous-next__item -->
+</div> <!-- previous-next -->
+```
 
 Пагинация бывает двух видов:
 - предыдущая, следующая
