@@ -1,25 +1,31 @@
 # style.css
-style.css - файл-шаблон темы WordPress, в котором содержится комментарий описывающий тему WordPress.
+`style.css` - файл-шаблон темы WordPress, в котором содержится комментарий описывающий тему WordPress.
 
-Минимум что должно быть в файл-шаблоне style.css:
+Минимум что должно быть в файл-шаблоне `style.css`:
 
-    /*
-      Theme Name: Название темы
-      Description: Краткое описание темы
-      Author: Имя автора темы
-      Text Domain: имя-папки-темы
-    */
+```css
+/*
+  Theme Name: Название темы
+  Description: Краткое описание темы
+  Author: Имя автора темы
+  Text Domain: имя-папки-темы
+*/
 
-    @import url('css/style.css');
+@import url('css/style.css');
+```
 
-    /*
-      Theme Name: Легионер
-      Description: Спортивный клуб Легионер
-      Author: Damir-art
-      Text Domain: legioner
-    */
+Пример:
 
-    @import url('css/style.css');
+```css
+/*
+  Theme Name: Легионер
+  Description: Спортивный клуб Легионер
+  Author: Damir-art
+  Text Domain: legioner
+*/
+
+@import url('css/style.css');
+```
 
 После чего можно активировать тему в админке и написать в index.php: `<p>hello</p>`. Если надпись на главной появилась, то всё нормально.
 

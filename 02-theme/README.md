@@ -21,64 +21,72 @@
 
 Первая функция в function.php, должна быть функция `themeName_debug()` форматированно выводящая объекты и массивы:
 
-    /**
-    * Показать массив, объект
-    */
-    function themeName_debug( $elem ) {
-      echo '<pre>';
-      print_r( $elem );
-      echo '</pre>';
-    }
+```php
+/**
+* Показать массив, объект
+*/
+function themeName_debug( $elem ) {
+  echo '<pre>';
+  print_r( $elem );
+  echo '</pre>';
+}
+```
 
 или:
 
-    function legioner_debug( $data ) {
-      echo '<pre>' . print_r( $data, 1 ) . '</pre>';
-    }
+```php
+function legioner_debug( $data ) {
+  echo '<pre>' . print_r( $data, 1 ) . '</pre>';
+}
+```
 
 Отмена сжатия изображений при загрузке:
 
-    /**
-    * Отменяем сжатие изображений
-    */
-    add_filter( 'jpeg_quality', function( $quality ) {
-      return 100;
-    });
+```php
+/**
+* Отменяем сжатие изображений
+*/
+add_filter( 'jpeg_quality', function( $quality ) {
+  return 100;
+});
+```
 
 Начальные настройки темы:
 
-    /**
-    * Начальные настройки темы
-    */
-    add_action( 'after_setup_theme', function() {
-      // Создание метатега <title> через хук
-      // add_theme_support( 'title-tag' ); // появится когда подключите функции wp_head() и wp_footer()
+```php
+/**
+* Начальные настройки темы
+*/
+add_action( 'after_setup_theme', function() {
+  // Создание метатега <title> через хук
+  // add_theme_support( 'title-tag' ); // появится когда подключите функции wp_head() и wp_footer()
 
-      // Поддержка миниатюр
-      // add_theme_support('post-thumbnails');
+  // Поддержка миниатюр
+  // add_theme_support('post-thumbnails');
 
-      // Включаем меню в админке
-      // add_theme_support( 'menus' );
+  // Включаем меню в админке
+  // add_theme_support( 'menus' );
 
-      add_theme_support('html5', array(
-        'comment-list',
-        'comment-form',
-        'search-form',
-        'gallery',
-        'caption',
-        'script',
-        'style',
-      ));
-    });
+  add_theme_support('html5', array(
+    'comment-list',
+    'comment-form',
+    'search-form',
+    'gallery',
+    'caption',
+    'script',
+    'style',
+  ));
+});
+```
 
 ## Из чего состоит WordPress
 WordPress это набор файлов, которые управляют контентом хранящимся в базе данных.
 
 Файлы WordPress делятся на 4 вида:
-1. Файлы ядра (движок): `/wp-admin/`
-2. Файлы тем: `/wp-content/themes/`
-3. Файлы плагинов: `/wp-content/plugins/`
-4. Загруженные пользователем файлы (изображения, документы и т.п.): `/wp-content/uploads/`
+- Файлы ядра (движок): `/wp-admin/`,
+- Файлы тем: `/wp-content/themes/`,
+- Файлы плагинов: `/wp-content/plugins/`,
+- Загруженные пользователем файлы (изображения, документы и т.п.): `/wp-content/uploads/`.
 
 ## Создаём свою тему WordPress
 **Тема** - это набор различных файлов и папок размещенных в определённом месте WordPress. У файлов должны быть определенные имена, относящиеся к WordPress. Внутри этих файлов размещается определённый код с использованием функций WordPress.  

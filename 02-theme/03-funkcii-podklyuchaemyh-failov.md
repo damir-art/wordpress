@@ -3,32 +3,42 @@
 
 Теги шаблонов: https://wp-kama.ru/functions/template-tags
 
-    <?php body_class(); ?>
-    <?php wp_body_open(); ?>
+```php
+<?php body_class(); ?>
+<?php wp_body_open(); ?>
+```
+
+Подклчаем изображения:
+
+```html
+<img src="<?php echo get_template_directory_uri() ?>/img/header.png" width="600" height="400" alt="" />
+```
 
 ## header.php
 Схема header.php:
 
-    <!DOCTYPE html>
-    <html <?php language_attributes(); ?>>
-    <head>
-      <meta charset="<?php bloginfo('charset'); ?>" />
-      <title><?php wp_title ('|', true, 'right'); bloginfo('name'); ?></title>
-      <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
-      <link rel="profile" href="http://gmpg.org/xfn/11" />
-      <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-      <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> &raquo; Лента" href="<?php bloginfo('rss2_url'); ?>" />
-      <?php wp_head(); ?>
-    </head>
-    <body <?php body_class(); ?> >
-    <?php wp_body_open(); ?>
+```html
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+  <meta charset="<?php bloginfo('charset'); ?>" />
+  <title><?php wp_title ('|', true, 'right'); bloginfo('name'); ?></title>
+  <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
+  <link rel="profile" href="http://gmpg.org/xfn/11" />
+  <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+  <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> &raquo; Лента" href="<?php bloginfo('rss2_url'); ?>" />
+  <?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?> >
+<?php wp_body_open(); ?>
 
-    <section class="section section--header">
-      <h1><?php bloginfo('name'); ?></h1>
-      <p><?php bloginfo('description'); ?></p>
-    </section>
+<section class="section section--header">
+  <h1><?php bloginfo('name'); ?></h1>
+  <p><?php bloginfo('description'); ?></p>
+</section>
 
-    <img src="<?php echo get_template_directory_uri(); ?>/img/picture.png" width="250" height="250" alt="" />
+<img src="<?php echo get_template_directory_uri(); ?>/img/picture.png" width="250" height="250" alt="" />
+```
 
 Где:
 
@@ -52,12 +62,14 @@
 
 Добавляем свой CSS-класс для внутренних страниц сайта:
 
-    $body_class = '';
-    if ( !is_front_page() ) {
-      $body_class = 'inner';
-    }
+```php
+$body_class = '';
+if ( !is_front_page() ) {
+  $body_class = 'inner';
+}
 
-    <body class=" <?php echo $body_class ?> ">
+<body class=" <?php echo $body_class ?> ">
+```
 
 Выяснить, что такое: `http://gmpg.org/xfn/11` и `bloginfo('pingback_url');`
 

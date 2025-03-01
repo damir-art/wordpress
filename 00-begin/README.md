@@ -8,18 +8,19 @@
 - Создание дочерней темы *(после выбора окончательной темы)*
 
 ## robots.txt
-Разместить в корень сайта, а не темы.  
+Разместить в корень сайта, а не темы.
+
 Код по-умолчанию:
 
-    User-agent: *
-    Disallow: /wp-admin/
-    Allow: /wp-admin/admin-ajax.php
+  User-agent: *
+  Disallow: /wp-admin/
+  Allow: /wp-admin/admin-ajax.php
 
-    Sitemap: https://site.ru/wp-sitemap.xml
+  Sitemap: https://site.ru/wp-sitemap.xml
 
 Sitemap XML уже встроен:
 
-    Sitemap: https://site.ru/wp-sitemap.xml
+  Sitemap: https://site.ru/wp-sitemap.xml
 
 ## Плагины
 Плагины WordPress, которые сразу ставим:
